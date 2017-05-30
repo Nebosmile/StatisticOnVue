@@ -3,13 +3,13 @@
         <img src="../assets/logo3.png" alt="">
         <div class="indexDiv2">
             <div class="indexDiv3">
-                <select id='indexselect' name="">
+                <select v-model='location' id='indexselect' name="">
                     <option v-for='(items, key) in devCasinoProd' v-bind:value="key">{{items}}</option>
 
                 </select>
             </div>
             <div id="goIndex" class="goindex activeindex">
-			    <h3>GAMES STATISTIC</h3>
+			    <h3><router-link v-bind:to='location'>GAMES STATISTIC</router-link></h3>
 			</div>
 
         </div>
@@ -28,7 +28,8 @@ export default {
                 dev:'show develop',
                 stage:'show stage',
                 coliseumbet:'show coliseumbet'
-            }
+            },
+            location:'prod',
         }
     }
 }
@@ -37,7 +38,10 @@ export default {
 <style lang="scss">
     #goIndex{
         cursor: pointer;
-        
+        h3{
+            font-size: 20px;
+        }
+
     }
 
 </style>

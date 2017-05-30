@@ -14,7 +14,11 @@ export default new Router({
     }, {
       path: '/statistic',
       name: 'statistic',
-      component: statistic
-    }
+      component: statistic,
+    }, {
+    path: '/statistic/:location',
+    name: 'statistic',
+    component: statistic,
+  }
   ]
 })
