@@ -5,12 +5,12 @@
             <div class="indexDiv3">
                 <select v-model='location' id='indexselect' name="">
                     <option v-for='(items, key) in devCasinoProd' v-bind:value="key">{{items}}</option>
-
                 </select>
             </div>
             <div id="goIndex" class="goindex activeindex">
-			    <h3><router-link v-bind:to='location'>GAMES STATISTIC</router-link></h3>
+			    <h3><router-link v-bind:to='location' append>GAMES STATISTIC</router-link></h3>
 			</div>
+            <router-view></router-view>
 
         </div>
 
