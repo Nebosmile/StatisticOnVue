@@ -10,10 +10,9 @@
             <div id="goIndex" class="goindex activeindex">
 			    <h3><router-link v-bind:to='location' append>GAMES STATISTIC</router-link></h3>
 			</div>
-            <router-view></router-view>
+            <router-view v-bind:previuslink ='location+"/"'></router-view>
 
         </div>
-
     </div>
 
 </template>
@@ -30,6 +29,7 @@ export default {
                 coliseumbet:'show coliseumbet'
             },
             location:'prod',
+
         }
     }
 }

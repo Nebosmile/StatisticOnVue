@@ -1,12 +1,12 @@
 <template lang="html">
-  <div>
-      it is session stat
+  <div class='forms'>
+      блок формы
   </div>
 </template>
 
 <script>
 export default {
-    name:'session'
+    name:'form-stat'
 }
 </script>
 
