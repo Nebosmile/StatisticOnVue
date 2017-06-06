@@ -3,9 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>statisticonvue</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
+    <script>
+
+
+        function initdatapicker(target, target2) {
+            target.datepicker();
+            target.datepicker("option", "dateFormat", "yy-mm-dd");
+            target.datepicker("setDate", "2016-09-01");
+
+            target2.datepicker();
+            target2.datepicker("option", "dateFormat", "yy-mm-dd");
+            // target2.datepicker("setDate", "2016-09-01");
+        }
+
+        //cюда записываем All инпуты даты которые необходимо инициализировать.( стартовая дата, конечное дата)
+
+        initdatapicker($("#dateof1"), $("#dateto1"));
+        console.log($("#dateof1"));
+        console.log($("#dateto1"));
+        $("#datepicker").datepicker();
+
+
+    </script>
   </body>
+
 </html>

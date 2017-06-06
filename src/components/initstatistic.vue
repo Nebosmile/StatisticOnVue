@@ -1,7 +1,7 @@
 <template lang="html">
     <div>
         <ul class="menu">
-            <li v-for='(items, key) in templatetlinks'><router-link v-on:click.native='setactivetemplate(key)'v-bind:append ='isappend'  v-bind:to='key' >{{items}}</router-link></li>
+            <li v-for='(items, key) in templatetlinks'><router-link v-on:click.native='setactivetemplate(key)' v-bind:to='"/statistic/" +previuslink+"/" + key' >{{items}}</router-link></li>
         </ul>
         <div>
             statistic intro
@@ -37,7 +37,8 @@ export default {
             var result =this.$route.fullPath;
             console.log(result);
             console.log(this.previuslink+this.activetemplate);
-            if(result.indexOf(this.previuslink+this.activetemplate)){
+            if(result.indexOf(this.previuslink) >=0){
+                console.log(result.indexOf(this.previuslink));
                 this.isappend= false;
                 console.log('false');
             }else{
