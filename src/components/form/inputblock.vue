@@ -44,7 +44,13 @@ export default {
       type: Object
     }
   },
-  name: 'inputblock'
+  name: 'inputblock',
+  mounted: function () {
+    // `this` указывает на экземпляр vm
+    // initdatapicker($("#dateof1"), $("#dateto1"));
+    $("#dateof" + this.inputarguments.from).datepicker();
+    $("#dateto" + this.inputarguments.to).datepicker();
+  }
 }
 
 </script>
