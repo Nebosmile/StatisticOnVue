@@ -11,7 +11,7 @@
 			</div>
 		</div>
 	</label>
-    <label v-if='inputarguments.gamecatgegory'>Game category
+    <label v-if='inputarguments.gamecategory'>Game category
 		<div class="inpContainer">
 			<select name="gameFilter" class="form-control">
 				<option value="!">Videoslots</option>
