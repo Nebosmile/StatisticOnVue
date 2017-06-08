@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
     name:'statistic',
     data(){
@@ -33,6 +34,7 @@ export default {
         }
     }
 }
+
 </script>
 
 <style lang="scss">

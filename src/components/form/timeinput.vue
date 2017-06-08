@@ -36,6 +36,7 @@
 </template>
 
 <script>
+
 export default {
     props: {
       timeoption: {
@@ -47,7 +48,10 @@ export default {
       // `this` указывает на экземпляр vm
       // initdatapicker($("#dateof1"), $("#dateto1"));
       $("#dateof" + this.timeoption.from).datepicker();
+      $("#dateof" + this.timeoption.from).datepicker("option", "dateFormat", "yy-mm-dd");
+
       $("#dateto" + this.timeoption.to).datepicker();
+      $("#dateto" + this.timeoption.from).datepicker("option", "dateFormat", "yy-mm-dd");
       inputInit(this.timeoption.from);
     }
 }

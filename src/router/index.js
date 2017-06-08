@@ -12,8 +12,13 @@ import roundturns from '@/components/statisticfolders/roundturns'
 import users from '@/components/statisticfolders/users'
 import exchangrates from '@/components/statisticfolders/exchangrates'
 
-Vue.use(Router)
 
+Vue.use(Router)
+console.log(statlink);
+function setstate(route) {
+
+    statlink=route.params.location
+}
 export default new Router({
   routes: [
     {
@@ -28,6 +33,7 @@ export default new Router({
         {
           path: ':location',
           component: initstatistic,
+          props:setstate,
           children: [
             {
               path: 'global',

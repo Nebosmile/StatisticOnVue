@@ -7,6 +7,8 @@
           <div class="hidewrapitem">
               <form class='hideitem'>
                   <inputblock v-bind:inputarguments='blockinput1'></inputblock>
+                  <inputblock v-bind:inputarguments='blockinput2'></inputblock>
+                  <inputblock v-bind:inputarguments='blockinput3'></inputblock>
               </form>
           </div>
       </div>
@@ -35,8 +37,24 @@ export default {
                 timeperiod:'all',
                 from:'1',
                 to:'1',
-                activsession:true
-            }
+                activsession:{
+                    status:"0"
+                }
+            },
+            blockinput2:{
+                gamecategory:'all',
+                gameblock:{
+                    activegame:''
+                },
+            },
+            blockinput3:{
+                timeperiod:'all',
+                from:'2',
+                to:'2',
+                activsession:{
+                    status:"0"
+                }
+            },
         }
     }
 }
