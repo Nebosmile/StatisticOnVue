@@ -6,9 +6,10 @@
           </div>
           <div class="hidewrapitem">
               <form class='hideitem'>
-                  <inputblock v-bind:inputarguments='blockinput1'></inputblock>
+                  <!-- <inputblock v-bind:inputarguments='blockinput1'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput2'></inputblock>
-                  <inputblock v-bind:inputarguments='blockinput3'></inputblock>
+                  <inputblock v-bind:inputarguments='blockinput3'></inputblock> -->
+                  <inputblock v-bind:inputarguments='blockinput4'></inputblock>
               </form>
           </div>
       </div>
@@ -54,6 +55,12 @@ export default {
                 activsession:{
                     status:"0"
                 }
+            },
+            blockinput4:{
+                casinoblock:{
+                    casinoid:''
+                },
+                userid:''
             },
         }
     }

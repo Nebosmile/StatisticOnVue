@@ -2,12 +2,19 @@
   <div>
         <label >Game
 			<div class="inpContainer">
-				<select name="slotsIdFilter" class="form-control">
+				<select name="slotsIdFilter" v-model='active_game' class="form-control">
                     <option value="0">All</option>
                     <option v-for='(item, index) in gamelist' v-bind:value="item.sCode">{{item.sName}}</option>
                 </select>
 			</div>
 		</label>
+        <div>
+			<label>Game ID
+			   <div class="inpContainer">
+				   <input name="gameId" type="text" class="form-control" v-bind:value='active_game'>
+			   </div>
+			</label>
+		</div>
   </div>
 </template>
 
@@ -22,7 +29,8 @@ export default {
     name:'gameinput',
     data(){
         return{
-            gamelist:""
+            gamelist:'',
+            active_game:''
         }
     },
     beforeCreate: function () {

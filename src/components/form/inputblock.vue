@@ -1,7 +1,8 @@
 <template lang="html">
   <div class='inputblock '>
      <timeinput v-if='inputarguments.activsession' :timeoption ='inputarguments'></timeinput>
-     <label v-if='inputarguments.activsession'>Sessions
+
+    <label v-if='inputarguments.activsession'>Sessions
 		<div class="inpContainer">
 			<div class="lineblock">
 				<input type="checkbox" name="opensession" value="1">Active
@@ -19,13 +20,23 @@
             </select>
 		</div>
 	</label>
+
     <gameinput v-if='inputarguments.gameblock'></gameinput>
+
+    <casinoinput v-if='inputarguments.casinoblock'></casinoinput>
+
+    <label v-if='inputarguments.userid'>User ID
+	   <div class="inpContainer">
+		   <input name="userId" type="text" class="form-control">
+	   </div>
+	</label>
   </div>
 </template>
 
 <script>
 import timeinput from '@/components/form/timeinput'
 import gameinput from '@/components/form/gameinput'
+import casinoinput from '@/components/form/casinoinput'
 
 
 export default {
@@ -36,7 +47,8 @@ export default {
   },
   components:{
       timeinput,
-      gameinput
+      gameinput,
+      casinoinput
   },
   name: 'inputblock',
   data(){

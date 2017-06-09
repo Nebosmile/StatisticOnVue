@@ -221,4 +221,7 @@ function timeformat(time1) {
 </script>
 
 <style lang="css">
+#ui-datepicker-div{
+    display: none;
+}
 </style>
