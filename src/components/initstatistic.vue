@@ -35,7 +35,6 @@ export default {
         setactivetemplate:function(elem) {
             this.activetemplate=elem;
             var result =this.$route.fullPath;
-            console.log(result);
             console.log(this.previuslink+this.activetemplate);
             if(result.indexOf(this.previuslink) >=0){
                 console.log(result.indexOf(this.previuslink));

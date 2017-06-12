@@ -2,7 +2,7 @@
   <div>
       it is session stat
   </div>
-</template>
+</template> 
 
 <script>
 export default {

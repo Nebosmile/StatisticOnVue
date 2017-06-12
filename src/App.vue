@@ -7,7 +7,13 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+        //take from statistic.vue
+    data(){
+        return{
+            casinolist:{},
+        }
+    },
 }
 </script>
 

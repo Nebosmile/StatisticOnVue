@@ -2,17 +2,20 @@
 <div>
     <label>Casino
 		<div class="inpContainer">
-			<select name="casinoFilter" class="form-control">
-                <option value="0">All</option>
+			<select v-on:change = 'get_c_c' name="casinoFilter" class="form-control" v-model='active_casino'>
+                <option value="all">All</option>
                 <option v-for='(item, index) in casinolist' v-bind:value="item.cid">{{item.casinoName}}</option>
             </select>
 		</div>
 	</label>
-    <label>Casino ID
-    	<div class="inpContainer">
-    	       <input name="casinoId" type="text" class="form-control">
-    	</div>
-	</label>
+
+        <label>Casino ID
+            <div class="inpContainer">
+                   <input name="casinoId" type="text" :value='active_casino' class="form-control">
+            </div>
+        </label>
+
+
 </div>
 </template>
 
@@ -28,6 +31,12 @@ export default {
         return{
             casinolist:'',
             active_casino:''
+        }
+    },
+    methods:{
+        get_c_c:function() {
+            this.$parent.$emit('catchme', this.active_casino);
+            console.log(this.$parent);
         }
     },
     beforeCreate: function () {

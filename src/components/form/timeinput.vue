@@ -61,14 +61,12 @@ console.log(id);
     var getFromTime = new Date();
 
     var selectTime = document.getElementById('selectTime'+id)
-    console.log(selectTime);
+
 
     var dateof = document.getElementById('dateof'+id)
     var timeof = document.getElementById('timeof'+id)
     var dateTo = document.getElementById('dateto'+id)
     var timeTo = document.getElementById('timeto'+id)
-    console.log(dateTo);
-    console.log(timeTo);
 
     var timeperiudObj =false;
     function setTimeperiud() {

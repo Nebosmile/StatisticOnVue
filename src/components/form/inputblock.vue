@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class='inputblock '>
+  <div class='inputblock'>
      <timeinput v-if='inputarguments.activsession' :timeoption ='inputarguments'></timeinput>
 
     <label v-if='inputarguments.activsession'>Sessions
@@ -23,20 +23,30 @@
 
     <gameinput v-if='inputarguments.gameblock'></gameinput>
 
-    <casinoinput v-if='inputarguments.casinoblock'></casinoinput>
+    <casinoinput  v-if='inputarguments.casinoblock'></casinoinput>
 
-    <label v-if='inputarguments.userid'>User ID
-	   <div class="inpContainer">
-		   <input name="userId" type="text" class="form-control">
-	   </div>
-	</label>
-  </div>
+
+    <useridinput  v-if='inputarguments.userid'></useridinput>
+
+    <roundsinput v-if='inputarguments.rounds'></roundsinput>
+
+    <currencyinput v-bind:currencyoption ='inputarguments' v-if='inputarguments.currency'></currencyinput>
+
+    <sortinput v-if='inputarguments.sort'></sortinput>
+
+    <showbyinput v-if='inputarguments.showby'></showbyinput>
+</div>
 </template>
 
 <script>
 import timeinput from '@/components/form/timeinput'
 import gameinput from '@/components/form/gameinput'
 import casinoinput from '@/components/form/casinoinput'
+import useridinput from '@/components/form/useridinput'
+import roundsinput from '@/components/form/roundsinput'
+import currencyinput from '@/components/form/currencyinput'
+import sortinput from '@/components/form/sortinput'
+import showbyinput from '@/components/form/showbyinput'
 
 
 export default {
@@ -48,15 +58,24 @@ export default {
   components:{
       timeinput,
       gameinput,
-      casinoinput
+      casinoinput,
+      useridinput,
+      roundsinput,
+      currencyinput,
+      sortinput,
+      showbyinput,
   },
   name: 'inputblock',
   data(){
       return{
 
       }
+  },
+  methods:{
+      iscatch:function () {
+          alert('catch in inputblock');
+      }
   }
-
 }
 
 
@@ -93,6 +112,7 @@ label {
     margin-bottom: 5px;
     font-weight: 700;
     text-align: right;
+    width: 100%;
 }
 .form-control {
     display: block;
@@ -118,5 +138,13 @@ label {
 .dateform input, .lineblock {
     width: 49%;
     float: left;
+}
+.inputblock input {
+    margin-bottom: 8px;
+    border-radius: 0;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #eee;
+    opacity: 1;
 }
 </style>
