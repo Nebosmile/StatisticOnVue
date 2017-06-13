@@ -23,14 +23,14 @@
 
     <gameinput v-if='inputarguments.gameblock'></gameinput>
 
-    <casinoinput  v-if='inputarguments.casinoblock'></casinoinput>
+    <casinoinput v-bind:currencyoption ='inputarguments'  v-if='inputarguments.casinoblock'></casinoinput>
 
 
     <useridinput  v-if='inputarguments.userid'></useridinput>
 
     <roundsinput v-if='inputarguments.rounds'></roundsinput>
 
-    <currencyinput v-bind:currencyoption ='inputarguments' v-if='inputarguments.currency'></currencyinput>
+    <!-- <currencyinput  v-if='inputarguments.currency'></currencyinput> -->
 
     <sortinput v-if='inputarguments.sort'></sortinput>
 
@@ -44,7 +44,6 @@ import gameinput from '@/components/form/gameinput'
 import casinoinput from '@/components/form/casinoinput'
 import useridinput from '@/components/form/useridinput'
 import roundsinput from '@/components/form/roundsinput'
-import currencyinput from '@/components/form/currencyinput'
 import sortinput from '@/components/form/sortinput'
 import showbyinput from '@/components/form/showbyinput'
 
@@ -61,7 +60,6 @@ export default {
       casinoinput,
       useridinput,
       roundsinput,
-      currencyinput,
       sortinput,
       showbyinput,
   },

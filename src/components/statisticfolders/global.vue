@@ -9,8 +9,9 @@
                   <inputblock v-bind:inputarguments='blockinput1'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput2'></inputblock>
                   <!-- <inputblock v-bind:inputarguments='blockinput3'></inputblock> -->
-                  <inputblock v-on:catchme='iscatch' v-bind:inputarguments='blockinput4'></inputblock>
+                  <inputblock v-bind:inputarguments='blockinput4'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput5'></inputblock>
+                  <buttonblockinput v-on:get='getGlobal' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
               </form>
           </div>
       </div>
@@ -22,6 +23,7 @@
 import formStat from '@/components/form/form'
 import tableStat from '@/components/tables/table'
 import inputblock from '@/components/form/inputblock'
+import buttonblockinput from '@/components/form/buttonblockinput'
 
 
 
@@ -31,7 +33,8 @@ export default {
     components:{
         formStat,
         tableStat,
-        inputblock
+        inputblock,
+        buttonblockinput
     },
     data(){
         return{
@@ -64,16 +67,16 @@ export default {
                 casinoblock:{
                     casinoid:''
                 },
-                userid:'0'
+                userid:'0',
+                currency:{
+                    status:'enabled',
+                    list:[],
+                },
             },
             blockinput5:{
                 rounds:{
                     from:'',
                     to:'',
-                },
-                currency:{
-                    status:'enabled',
-                    list:[],
                 },
                 sort:{
                     status:'disabled',
@@ -83,55 +86,18 @@ export default {
                     arr:['50','100','200','500','1000'],
                     all:'1',
                 },
+            },
+            buttonblock:{
+                sumbit:true,
+                reset:true,
+                clear:true,
             }
         }
     },
     methods:{
-        iscatch:function (e) {
-            this.getcurrency(e)
-        },
-        getcurrency:function(elem) {
-            console.log('go');
-            var idcasino;
-            if(elem =='all' || !elem){
-                idcasino = 'all';
-            }else if(elem){
-                idcasino ='cid='+ elem;
-            }
-            var newlink = link+statlink+'/api.php?getCasinoCurrency&'+idcasino
-            // console.log(newlink);
-            var newthis = this;
-            $.ajax({
-                url: newlink,
-                dataType: 'JSON',
-                type: 'GET',
-                success: function(data){
-
-                    var CasinoArr = data.info;
-                    if(elem){
-                        CasinoArr=[data]
-                    }
-                    var CurrObg = {};
-                    var CurrArr = [];
-                    console.log(data);
-
-                    CasinoArr.forEach(function(item) {
-                        item.currency.forEach(function(currname, index) {
-                            CurrObg[(currname.name)] = currname.name;
-
-                        })
-
-                    })
-                    for (var key in CurrObg) {
-                        CurrArr.push(key)
-                    }
-                    newthis.blockinput5.currency.list=CurrArr
-                }
-            })
+        getGlobal:function () {
+            console.log('catch get');
         }
-    },
-    mounted:function () {
-        this.getcurrency();
     },
 
 

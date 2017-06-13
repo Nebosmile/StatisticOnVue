@@ -2,7 +2,7 @@
 <div>
     <label>Casino
 		<div class="inpContainer">
-			<select v-on:change = 'get_c_c' name="casinoFilter" class="form-control" v-model='active_casino'>
+			<select v-on:change = 'getcurrency' name="casinoFilter" class="form-control" v-model='active_casino'>
                 <option value="all">All</option>
                 <option v-for='(item, index) in casinolist' v-bind:value="item.cid">{{item.casinoName}}</option>
             </select>
@@ -14,6 +14,14 @@
                    <input name="casinoId" type="text" :value='active_casino' class="form-control">
             </div>
         </label>
+        <label v-if='currencyoption.currency'>Currency
+            <div class="inpContainer">
+               <select name="currency" class="form-control">
+                   <option value="">All</option>
+                   <option v-for='key in currencyoption.currency.list' :value='key'>{{key}} </option>
+               </select>
+            </div>
+        </label>
 
 
 </div>
@@ -22,8 +30,8 @@
 <script>
 export default {
     props:{
-        gameinputoption:{
-            type: Object
+        currencyoption: {
+          type: Object
         }
     },
     name:'casinoinput',
@@ -34,9 +42,46 @@ export default {
         }
     },
     methods:{
-        get_c_c:function() {
-            this.$parent.$emit('catchme', this.active_casino);
-            console.log(this.$parent);
+        getcurrency:function() {
+            var idcasino = this.active_casino;
+            if(idcasino =='all' || !idcasino){
+                idcasino = 'all';
+            }else if(idcasino){
+                idcasino ='cid='+ idcasino;
+            }
+            var newlink = link+statlink+'/api.php?getCasinoCurrency&'+idcasino;
+            console.log(newlink);
+            var newthis = this;
+            $.ajax({
+                url: newlink,
+                dataType: 'JSON',
+                type: 'GET',
+                success: function(data){
+
+                    var CasinoArr = data.info;
+                    if(idcasino!='all'){
+                        CasinoArr=[data]
+                    }
+                    var CurrObg = {};
+                    var CurrArr = [];
+
+
+                    CasinoArr.forEach(function(item) {
+
+                        item.currency.forEach(function(currname, index) {
+
+                            CurrObg[(currname.name)] = currname.name;
+
+                        })
+
+                    })
+
+                    for (var key in CurrObg) {
+                        CurrArr.push(key)
+                    }
+                    newthis.currencyoption.currency.list=CurrArr
+                }
+            })
         }
     },
     beforeCreate: function () {
@@ -52,7 +97,13 @@ export default {
                 newthis.casinolist=data.info;
             }
         })
-    }
+    },
+    mounted:function () {
+        if(this.currencyoption.currency != undefined){
+            this.getcurrency();
+        }
+
+    },
 
 }
 </script>
