@@ -11,7 +11,7 @@
 
         <label>Casino ID
             <div class="inpContainer">
-                   <input name="casinoId" type="text" :value='active_casino' class="form-control">
+                   <input v-on:click='generete' name="casinoId" type="text" :value='active_casino' class="form-control">
             </div>
         </label>
         <label v-if='currencyoption.currency'>Currency
@@ -42,6 +42,9 @@ export default {
         }
     },
     methods:{
+        generete:function () {
+            vm.$emit('test');
+        },
         getcurrency:function() {
             var idcasino = this.active_casino;
             if(idcasino =='all' || !idcasino){

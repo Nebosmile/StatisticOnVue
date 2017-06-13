@@ -1,6 +1,6 @@
 <template lang="html">
   <div class='inputblock'>
-     <timeinput v-if='inputarguments.activsession' :timeoption ='inputarguments'></timeinput>
+     <timeinput v-if='inputarguments.time' :timeoption ='inputarguments.time'></timeinput>
 
     <label v-if='inputarguments.activsession'>Sessions
 		<div class="inpContainer">

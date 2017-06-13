@@ -38,13 +38,49 @@ export default {
     },
     data(){
         return{
-
-
+            formvalues:{
+                time:{
+                    id:'1',
+                    timeperiod:'all',
+                    timeof:{
+                        status:'enabled',
+                        data:'2017-01-01',
+                        time:'00:00:00',
+                    },
+                    timeto:{
+                        status:'enabled',
+                        data:'',
+                        time:'',
+                    }
+                },
+                activsession:{
+                    status:"0"
+                },
+            },
+            // blockinput1:{
+            //     time:data.time,
+            //     from:'1',
+            //     to:'1',
+            //     activsession:{
+            //         status:"0"
+            //     }
+            // },
 
             blockinput1:{
-                timeperiod:'all',
-                from:'1',
-                to:'1',
+                time:{
+                    id:'1',
+                    timeperiod:'all',
+                    timeof:{
+                        status:'enabled',
+                        data:'2017-01-01',
+                        time:'00:00:00',
+                    },
+                    timeto:{
+                        status:'enabled',
+                        data:'',
+                        time:'',
+                    }
+                },
                 activsession:{
                     status:"0"
                 }

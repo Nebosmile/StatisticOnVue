@@ -2,7 +2,7 @@
     <div>
         <label v-if='timeoption.timeperiod'>Time period
             <div class='inpContainer'>
-                  <select v-bind:id="'selectTime'+timeoption.from" name="timeFilter" class="form-control">
+                  <select v-bind:id="'selectTime'+timeoption.id" name="timeFilter" class="form-control">
                       <option value="!">All time</option>
                       <option id="selectme" value="selectme">Time period</option>
                       <option value="lastmonth">Last month</option>
@@ -16,19 +16,19 @@
                   </select>
             </div>
           </label>
-          <div v-if='timeoption.from' class="dateform">
+          <div v-if='timeoption.timeof' class="dateform">
               <label>From
                   <div class="inpContainer">
-                      <input type="text" name="dateof" v-bind:id="'dateof'+timeoption.from" class="form-control" value="">
-                      <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.from" class="form-control ui-timepicker-input" value="" autocomplete="off">
+                      <input type="text" name="dateof" v-bind:id="'dateof'+timeoption.id" class="form-control" value="">
+                      <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.id" class="form-control ui-timepicker-input" value="" autocomplete="off">
                   </div>
               </label>
           </div>
-          <div v-if='timeoption.to' class="dateform">
+          <div v-if='timeoption.timeto' class="dateform">
               <label>To
                   <div class="inpContainer">
-                      <input type="text" name="dateto" v-bind:id="'dateto'+timeoption.to" class="form-control" value="">
-                      <input type="text" name="timeto" v-bind:id="'timeto'+timeoption.to" class="form-control ui-timepicker-input" value="" autocomplete="off">
+                      <input type="text" name="dateto" v-bind:id="'dateto'+timeoption.id" class="form-control" value="">
+                      <input type="text" name="timeto" v-bind:id="'timeto'+timeoption.id" class="form-control ui-timepicker-input" value="" autocomplete="off">
                   </div>
               </label>
           </div>
@@ -45,22 +45,29 @@ export default {
     },
     name:'timeinput',
     mounted: function () {
+        vm.$on('test', function () {
+          console.log('msg')
+        })
       // `this` указывает на экземпляр vm
       // initdatapicker($("#dateof1"), $("#dateto1"));
-      $("#dateof" + this.timeoption.from).datepicker();
-      $("#dateof" + this.timeoption.from).datepicker("option", "dateFormat", "yy-mm-dd");
+      $("#dateof" + this.timeoption.id).datepicker();
+      $("#dateof" + this.timeoption.id).datepicker("option", "dateFormat", "yy-mm-dd");
 
-      $("#dateto" + this.timeoption.to).datepicker();
-      $("#dateto" + this.timeoption.from).datepicker("option", "dateFormat", "yy-mm-dd");
-      inputInit(this.timeoption.from);
-    }
+      $("#dateto" + this.timeoption.id).datepicker();
+      $("#dateto" + this.timeoption.id).datepicker("option", "dateFormat", "yy-mm-dd");
+      inputInit(this.timeoption.id);
+  },
+    // destroyed:function () {
+    //     vm.$off()
+    // }
 }
 function inputInit(id) {
 console.log(id);
     var now = new Date();
     var getFromTime = new Date();
 
-    var selectTime = document.getElementById('selectTime'+id)
+    var selectTime = document.getElementById('selectTime'+id);
+    console.log(selectTime);
 
 
     var dateof = document.getElementById('dateof'+id)
@@ -79,6 +86,10 @@ console.log(id);
 
 
     if(dateof != undefined){
+        console.log(dateof);
+        console.log(timeof);
+        console.log(dateTo);
+        console.log(timeTo);
         dateof.addEventListener('click', function() {
             selectTime.value = "selectme";
         });
