@@ -2,7 +2,7 @@
     <div>
         <label v-if='timeoption.timeperiod'>Time period
             <div class='inpContainer'>
-                  <select v-bind:id="'selectTime'+timeoption.id" name="timeFilter" class="form-control">
+                  <select v-on:change='inputInit' v-bind:id="'selectTime'+timeoption.id" v-model='selecttime' name="timeFilter" class="form-control">
                       <option value="!">All time</option>
                       <option id="selectme" value="selectme">Time period</option>
                       <option value="lastmonth">Last month</option>
@@ -19,17 +19,19 @@
           <div v-if='timeoption.timeof' class="dateform">
               <label>From
                   <div class="inpContainer">
-                      <input type="text" name="dateof" v-bind:id="'dateof'+timeoption.id" class="form-control" value="">
-                      <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.id" class="form-control ui-timepicker-input" value="" autocomplete="off">
+                      <input v-on:click='settime("dateof")' type="text"  name="dateof" v-bind:id="'dateof'+timeoption.id" class="form-control" v-model="timeoption.timeof.data" v-on:blur='iscatchtime("dateof",timeoption.id)'>
+                      <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.id" class="form-control ui-timepicker-input" v-model="timeoption.timeof.time" autocomplete="off">
                   </div>
+                  <div>{{timeoption.timeof.data}} </div>
               </label>
           </div>
           <div v-if='timeoption.timeto' class="dateform">
               <label>To
                   <div class="inpContainer">
-                      <input type="text" name="dateto" v-bind:id="'dateto'+timeoption.id" class="form-control" value="">
-                      <input type="text" name="timeto" v-bind:id="'timeto'+timeoption.id" class="form-control ui-timepicker-input" value="" autocomplete="off">
+                      <input v-on:click='settime("dateto")' type="text" name="dateto" v-bind:id="'dateto'+timeoption.id" class="form-control" v-model="timeoption.timeto.data" v-on:blur='iscatchtime("dateto",timeoption.id)'>
+                      <input type="text" name="timeto" v-bind:id="'timeto'+timeoption.id" class="form-control ui-timepicker-input" v-model="timeoption.timeto.time" autocomplete="off">
                   </div>
+                  <div>{{timeoption.timeto.data}} </div>
               </label>
           </div>
       </div>
@@ -43,11 +45,16 @@ export default {
         type: Object
       }
     },
+    data(){
+        return{
+            selecttime:''
+        }
+    },
     name:'timeinput',
     mounted: function () {
-        vm.$on('test', function () {
-          console.log('msg')
-        })
+        // vm.$on('test', function () {
+        //   console.log('msg')
+        // })
       // `this` указывает на экземпляр vm
       // initdatapicker($("#dateof1"), $("#dateto1"));
       $("#dateof" + this.timeoption.id).datepicker();
@@ -55,12 +62,161 @@ export default {
 
       $("#dateto" + this.timeoption.id).datepicker();
       $("#dateto" + this.timeoption.id).datepicker("option", "dateFormat", "yy-mm-dd");
-      inputInit(this.timeoption.id);
-  },
+    //   inputInit(this.timeoption.id);
+  },methods:{
+      ischange:function (e) {
+         console.log();
+     },
+     settime:function (e) {
+         if(e=='dateof' && this.timeoption.timeof.time==''){
+             this.timeoption.timeof.time="00:00:00";
+         }
+         if(e=='dateto' && this.timeoption.timeto.time==''){
+             this.timeoption.timeto.time="00:00:00";
+         }
+     },
+     iscatchtime(e, elId){
+         var newthis = this;
+         var element = e;
+         var id = elId;
+         var elem= document.getElementById(element + id)
+         console.log(element + id);
+         setTimeout(function () {
+
+
+         var target = "";
+
+         if(e=='dateof'){
+             newthis.timeoption.timeof.data=elem.value;
+         }
+         else if (e=='timeof') {
+             newthis.timeoption.timeof.time=elem.value;
+         }
+         else if (e=='dateto') {
+
+             newthis.timeoption.timeto.data=elem.value;
+             console.log(newthis.timeoption.timeto);
+             console.log(elem.value);
+         }
+         else if (e=='timeto') {
+            newthis.timeoption.timeto.time=elem.value;
+         }
+        },500)
+
+     },inputInit(){
+         var newthis = this;
+         var now = new Date();
+
+            if(newthis.selecttime=='selectme'){
+                return
+            }
+             newthis.timeoption.timeto.data = "" //(timeformat(new Date())).datavalue;
+             newthis.timeoption.timeto.time = "" //(timeformat(new Date())).timevalue;
+             if (newthis.selecttime == "!") {
+                 newthis.timeoption.timeof.data = "";
+                 newthis.timeoption.timeof.time = "";
+                 newthis.timeoption.timeto.data = "";
+                 newthis.timeoption.timeto.time = "";
+             } else if (newthis.selecttime == "lastmonth") {
+                 var newtime = new Date();
+                 newtime.setMonth(newtime.getMonth() - 1);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+
+
+
+             } else if (newthis.selecttime == "lastweek") {
+                 var newtime = new Date();
+                 newtime.setDate(newtime.getDate() - 7);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             } else if (newthis.selecttime == "thismonth") {
+                 var newtime = new Date();
+                 newtime.setDate(1);
+                 newtime.setHours(0);
+                 newtime.setMinutes(0);
+                 newtime.setSeconds(0);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             } else if (newthis.selecttime == "thisweek") {
+                 var newtime = new Date();
+                 var day = newtime.getDay();
+                 if (day == 0) {
+                     day = 7
+                 } else {
+                     day = day - 1;
+                 }
+                 newtime.setDate(newtime.getDate() - day);
+                 newtime.setHours(0);
+                 newtime.setMinutes(0);
+                 newtime.setSeconds(0);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             } else if (newthis.selecttime == "lastday") {
+                 var newtime = new Date();
+                 newtime.setDate(newtime.getDate() - 1);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             } else if (newthis.selecttime == "thisday") {
+                 var newtime = new Date();
+                 newtime.setHours(0);
+                 newtime.setMinutes(0);
+                 newtime.setSeconds(0);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             } else if (newthis.selecttime == "lasthour") {
+                 var newtime = new Date();
+                 newtime.setMinutes(newtime.getMinutes() - 60);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             } else if (newthis.selecttime == "last10m") {
+                 var newtime = new Date();
+                 newtime.setMinutes(newtime.getMinutes() - 10);
+                 newthis.timeoption.timeof.data = (newthis.timeformat(newtime)).datavalue;
+                 newthis.timeoption.timeof.time = (newthis.timeformat(newtime)).timevalue;
+             }
+
+             var now = timeformat(now);
+
+     },timeformat(time1) {
+         var year = time1.getFullYear();
+         var month = time1.getMonth();
+         month += 1;
+         if (month < 10) {
+             month = "0" + month;
+         }
+         var day = time1.getDate();
+         if (day < 10) {
+             day = "0" + day;
+         }
+         var hours = time1.getHours();
+         if (hours < 10) {
+             hours = "0" + hours;
+         }
+         var minets = time1.getMinutes();
+         if (minets < 10) {
+             minets = "0" + minets;
+         }
+         var seconds = time1.getSeconds();
+         if (seconds < 10) {
+             seconds = "0" + seconds;
+         }
+
+         var timeArr = {
+             'datavalue': year + "-" + (month) + "-" + day,
+             'timevalue': hours + ":" + minets + ":" + seconds,
+
+         }
+
+
+         return timeArr;
+     }
+  }
     // destroyed:function () {
     //     vm.$off()
     // }
 }
+
 function inputInit(id) {
 console.log(id);
     var now = new Date();
