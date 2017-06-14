@@ -65,7 +65,6 @@ export default {
     //   inputInit(this.timeoption.id);
   },methods:{
       ischange:function (e) {
-         console.log();
      },
      settime:function (e) {
          if(e=='dateof' && this.timeoption.timeof.time==''){
@@ -80,12 +79,8 @@ export default {
          var element = e;
          var id = elId;
          var elem= document.getElementById(element + id)
-         console.log(element + id);
          setTimeout(function () {
-
-
          var target = "";
-
          if(e=='dateof'){
              newthis.timeoption.timeof.data=elem.value;
          }
@@ -95,8 +90,6 @@ export default {
          else if (e=='dateto') {
 
              newthis.timeoption.timeto.data=elem.value;
-             console.log(newthis.timeoption.timeto);
-             console.log(elem.value);
          }
          else if (e=='timeto') {
             newthis.timeoption.timeto.time=elem.value;
