@@ -27,9 +27,8 @@
                 </thead>
                 <tbody>
                     <tr v-for='(item, index) in options.ansver.info'>
-                        <td>{{index + 1}}</td>
                         <td v-for='(elem,index2) in options.initvalue'>
-                            {{item[elem.value]}}
+                            {{item[elem.value] || index + 1}}
                         </td>
                     </tr>
                 </tbody>
