@@ -26,7 +26,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for='(item, inex1) in options.ansver.info'>
+                    <tr v-for='(item, index) in options.ansver.info'>
+                        <td>{{index + 1}}</td>
                         <td v-for='(elem,index2) in options.initvalue'>
                             {{item[elem.value]}}
                         </td>
