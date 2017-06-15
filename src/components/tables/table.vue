@@ -1,6 +1,5 @@
 <template lang="html">
     <div class='hidwrap tableFilter'>
-
         <div class='filterblock hide'>
             <div class="filterblockin">
                 <form>
@@ -11,24 +10,27 @@
 
             </div>
         </div>
+        <div class="rowchik">
+			<p class="left">{{tablename}}</p>
+			<div class="hideButton right"></div>
+			<div class="filterButton right"></div>
+		</div>
 
 
 
         <div class="hidewrapitem">
             <table class="hideitem">
                 <thead>
-                    <!-- <template v-if='ansver.info'>
-                        <tr>
-                            <th v-if='Checkstatus(items)' v-for='items in initvalue'>{{items.name }}</th>
-                        </tr>
-                    </template> -->
+                    <tr>
+                        <th v-if='options.initvalue' v-for='items in options.initvalue'>{{items.name }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <!-- <template v-if='ansver.info' v-for='items in ansver.info'>
-                        <tr>
-                            <td v-if='Checkstatus(element)' v-for='(element,index) in initvalue' >{{items[index]}}</td>
-                        </tr>
-                    </template> -->
+                    <tr v-for='(item, inex1) in options.ansver.info'>
+                        <td v-for='(elem,index2) in options.initvalue'>
+                            {{item[elem.value]}}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -44,7 +46,9 @@ export default {
         options:{
             type: Object
         },
-        
+        tablename:{
+            type: String
+        }
     },
 }
 </script>

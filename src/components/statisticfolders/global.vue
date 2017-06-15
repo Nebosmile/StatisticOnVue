@@ -14,7 +14,8 @@
               </form>
           </div>
       </div>
-      <!-- <tableStat></tableStat> -->
+
+      <tableStat v-if='detailtable.ansver' tablename='Summary by currency' v-bind:options ='detailtable'></tableStat>
   </div>
 </template>
 
@@ -103,7 +104,27 @@ export default {
                 sumbit:true,
                 reset:true,
                 clear:true,
-            }
+            },
+            detailtable:{
+                set_value:'',
+                ansver:'',
+                count:'',
+                initvalue:[
+                    {value: 'number', name:'Number',status:'checked',default:'1'},
+                    {value:'casino', name:'Casino',status:'checked',default:'1'},
+                    {value:'sessions',name:'Sessions',status:'checked',default:'1'},
+                    {value:'rounds',name:'Rounds',status:'checked',default:'1'},
+                    {value:'users',name:'Users',status:'checked',default:'1'},
+                    {value:'startDate',name:'Date',status:'checked',default:'1'},
+                    {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
+                    {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
+                    {value:'incomeCash',name:'Income',status:'checked',default:'1'},
+                    {value:'currency',name:'Currency',status:'checked',default:'1'},
+                    {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
+                    {value:'totalBetCoins',name:'totalBetCoins',status:'hide',default:'0'},
+                    {value:'totalWinCoins',name:'totalWinCoins',status:'hide',default:'0'},
+                ]
+            },
         }
     },
     //http://autorisation.bossgs.org/interstat/dev/api.php?getGlobal=casino&roundMin=0&roundMax=9999999&cId=5936952d643a9d093739451b&sCode=0&isActive=2&currency=&startDate=0&stopDate=0&uId=&baseCurrency=0
@@ -127,8 +148,24 @@ export default {
 
             var newlink = link+statlink+'/api.php?getGlobal=casino'+'&roundMin='+RoundMin + '&roundMax=' + roundMax +'&cId='+casinoId+'&sCode='+sCode+'&isActive='+isActive+'&currency='+currency+'&startDate='+startDate+'&stopDate='+stopDate+'&uId='+uId+'&baseCurrency='+basecurrency;
             console.log(newlink);
-            console.log(startDate);
-            console.log(stopDate);
+
+            var appthis = this;
+            $.ajax({
+                url:newlink,
+                dataType:'JSON',
+                type:'GET',
+                success:function (data) {
+                    if(data.count){
+                        appthis.count='Получено записей '+data.count;
+                        appthis.detailtable.ansver = data;
+                        console.log(appthis.detailtable.ansver);
+                    }else{
+                        appthis.count='Записепй не найдено';
+                    }
+
+                }
+            })
+
         }
     },
 
