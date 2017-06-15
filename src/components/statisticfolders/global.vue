@@ -25,11 +25,10 @@ import buttonblockinput from '@/components/form/buttonblockinput'
 
 
 
-console.log(formStat);
+
 export default {
     name:'global',
     components:{
-        formStat,
         tableStat,
         inputblock,
         buttonblockinput

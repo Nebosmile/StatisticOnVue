@@ -44,7 +44,7 @@ export default {
         options:{
             type: Object
         },
-        tablename
+        
     },
 }
 </script>
