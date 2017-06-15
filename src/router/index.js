@@ -14,10 +14,15 @@ import exchangrates from '@/components/statisticfolders/exchangrates'
 
 
 Vue.use(Router)
-console.log(statlink);
+
 function setstate(route) {
 
     statlink=route.params.location
+}
+// console.log(statlink);
+function taketimeTo(value1,value2) {
+    var time = value1 + "T" + value2
+    return Date.parse(time);
 }
 export default new Router({
   routes: [

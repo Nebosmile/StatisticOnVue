@@ -19,7 +19,7 @@
           <div v-if='timeoption.timeof' class="dateform">
               <label>From
                   <div class="inpContainer">
-                      <input v-on:click='settime("dateof")' type="text"  name="dateof" v-bind:id="'dateof'+timeoption.id" class="form-control" v-model="timeoption.timeof.data" v-on:blur='iscatchtime("dateof",timeoption.id)'>
+                      <input v-on:click='settime("dateof")' type="text"  name="dateof" v-bind:id="'dateof'+timeoption.id"  class="form-control" v-model="timeoption.timeof.data" v-on:blur='iscatchtime("dateof",timeoption.id)'>
                       <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.id" class="form-control ui-timepicker-input" v-model="timeoption.timeof.time" autocomplete="off">
                   </div>
                   <div>{{timeoption.timeof.data}} </div>
@@ -52,6 +52,7 @@ export default {
     },
     name:'timeinput',
     mounted: function () {
+        var newthis = this
         // vm.$on('test', function () {
         //   console.log('msg')
         // })
@@ -59,9 +60,11 @@ export default {
       // initdatapicker($("#dateof1"), $("#dateto1"));
       $("#dateof" + this.timeoption.id).datepicker();
       $("#dateof" + this.timeoption.id).datepicker("option", "dateFormat", "yy-mm-dd");
+      $("#dateof" + this.timeoption.id).datepicker("setDate", newthis.timeoption.timeof.data);
 
       $("#dateto" + this.timeoption.id).datepicker();
       $("#dateto" + this.timeoption.id).datepicker("option", "dateFormat", "yy-mm-dd");
+      $("#dateto" + this.timeoption.id).datepicker("setDate", newthis.timeoption.timeto.data);
     //   inputInit(this.timeoption.id);
   },methods:{
       ischange:function (e) {

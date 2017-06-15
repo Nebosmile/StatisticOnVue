@@ -1,21 +1,26 @@
 <template lang="html">
         <label for="show">Show by
            <div class="inpContainer">
-               <select name="show" class="form-control">
-                   <option value="50">50</option>
-                   <option value="100">100</option>
-                   <option value="200">200</option>
-                   <option value="500">500</option>
-                   <option value="1000">1000</option>
-                   <option value="99999999">All</option>
+               <select v-model='options.showby.active' name="show" class="form-control">
+                  <option v-for='key in options.showby.arr' v-bind:value="key">{{key}}</option>
+                  <option v-bind:value='options.showby.all' >all</option>
                </select>
+               <div>
+                   {{options.showby.active}}
+               </div>
            </div>
         </label>
 
 </template>
 
 <script>
+
 export default {
+    props:{
+        options:{
+            type: Object
+        }
+    },
     name:'showbyinput',
 }
 </script>

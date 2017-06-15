@@ -8,9 +8,8 @@
               <form class='hideitem'>
                   <inputblock v-bind:inputarguments='blockinput1'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput2'></inputblock>
-                  <!-- <inputblock v-bind:inputarguments='blockinput3'></inputblock> -->
+                  <inputblock v-bind:inputarguments='blockinput3'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput4'></inputblock>
-                  <inputblock v-bind:inputarguments='blockinput5'></inputblock>
                   <buttonblockinput v-on:get='getGlobal' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
               </form>
           </div>
@@ -20,7 +19,6 @@
 </template>
 
 <script>
-import formStat from '@/components/form/form'
 import tableStat from '@/components/tables/table'
 import inputblock from '@/components/form/inputblock'
 import buttonblockinput from '@/components/form/buttonblockinput'
@@ -36,36 +34,14 @@ export default {
         inputblock,
         buttonblockinput
     },
+    beforeDestroy() {
+        console.log('I am global and I am destroyed')
+    },
+    beforeMount() {
+        console.log('I am global and I am mounted')
+    },
     data(){
         return{
-            formvalues:{
-                time:{
-                    id:'1',
-                    timeperiod:'all',
-                    timeof:{
-                        status:'enabled',
-                        data:'2017-01-01',
-                        time:'00:00:00',
-                    },
-                    timeto:{
-                        status:'enabled',
-                        data:'',
-                        time:'',
-                    }
-                },
-                activsession:{
-                    status:"0"
-                },
-            },
-            // blockinput1:{
-            //     time:data.time,
-            //     from:'1',
-            //     to:'1',
-            //     activsession:{
-            //         status:"0"
-            //     }
-            // },
-
             blockinput1:{
                 time:{
                     id:'1',
@@ -90,26 +66,26 @@ export default {
                 gameblock:{
                     activegame:''
                 },
+                userid:{
+                    id:''
+                },
             },
+
             blockinput3:{
-                timeperiod:'all',
-                from:'2',
-                to:'2',
-                activsession:{
-                    status:"0"
-                }
-            },
-            blockinput4:{
                 casinoblock:{
                     casinoid:''
                 },
-                userid:'0',
+
                 currency:{
                     status:'enabled',
                     list:[],
+                    activecurrency:''
                 },
+                basecurrency:{
+                    activebasecur:'0'
+                }
             },
-            blockinput5:{
+            blockinput4:{
                 rounds:{
                     from:'',
                     to:'',
@@ -120,7 +96,8 @@ export default {
                 showby:{
                     status:'enabled',
                     arr:['50','100','200','500','1000'],
-                    all:'1',
+                    active:'50',
+                    all:'99999999',
                 },
             },
             buttonblock:{
@@ -130,9 +107,29 @@ export default {
             }
         }
     },
+    //http://autorisation.bossgs.org/interstat/dev/api.php?getGlobal=casino&roundMin=0&roundMax=9999999&cId=5936952d643a9d093739451b&sCode=0&isActive=2&currency=&startDate=0&stopDate=0&uId=&baseCurrency=0
     methods:{
         getGlobal:function () {
-            console.log('catch get');
+            var RoundMin=this.blockinput4.rounds.from;
+            var roundMax=this.blockinput4.rounds.to;
+            var casinoId=this.blockinput3.casinoblock.casinoid;
+            var sCode= this.blockinput2.gameblock.activegame;
+            if (sCode == "") {
+                sCode = 0;
+            }
+            var isActive='2';
+            var basecurrency =this.blockinput3.basecurrency.activebasecur;
+            var currency= this.blockinput3.currency.activecurrency;
+            var startDate = taketime(this.blockinput1.time.timeof.data,this.blockinput1.time.timeof.time)
+            var stopDate = taketime(this.blockinput1.time.timeto.data,this.blockinput1.time.timeto.time)
+            var uId = this.blockinput2.userid.id;
+            var baseCurrency;
+
+
+            var newlink = link+statlink+'/api.php?getGlobal=casino'+'&roundMin='+RoundMin + '&roundMax=' + roundMax +'&cId='+casinoId+'&sCode='+sCode+'&isActive='+isActive+'&currency='+currency+'&startDate='+startDate+'&stopDate='+stopDate+'&uId='+uId+'&baseCurrency='+basecurrency;
+            console.log(newlink);
+            console.log(startDate);
+            console.log(stopDate);
         }
     },
 

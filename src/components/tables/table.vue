@@ -39,7 +39,13 @@
 
 <script>
 export default {
-    name:'tableStat'
+    name:'tableStat',
+    props:{
+        options:{
+            type: Object
+        },
+        tablename
+    },
 }
 </script>
 

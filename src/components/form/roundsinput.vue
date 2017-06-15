@@ -2,10 +2,10 @@
     <label for="">Rounds
   	   <div class="inpContainer">
   		   <div class="lineblock">
-  			   <input name="spinsFrom" type="Number" accept="" value="" min="0" class="form-control" placeholder="from">
+  			   <input v-model='options.rounds.from' name="spinsFrom" type="Number" accept="" value="" min="0" class="form-control" placeholder="from">
   			</div>
       		<div class="lineblock">
-      			<input name="spinsTo" type="Number" value="" min="0" class="form-control" placeholder="to">
+      			<input v-model='options.rounds.to' name="spinsTo" type="Number" value="" min="0" class="form-control" placeholder="to">
       		</div>
   		</div>
   	</label>
@@ -13,6 +13,11 @@
 
 <script>
 export default {
+    props:{
+        options:{
+            type: Object
+        }
+    },
     name:'roundsinput'
 }
 </script>

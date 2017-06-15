@@ -13,3 +13,12 @@ window.vm = new Vue({
   template: '<App/>',
   components: { App }
 })
+window.gois=function () {
+    return "gogogog"
+}
+window.taketime = function(value1,value2) {
+    var time = value1 + "T" + value2
+    var newtime = Date.parse(time);
+    if (isNaN(newtime)) newtime = 0;
+    return newtime;
+}

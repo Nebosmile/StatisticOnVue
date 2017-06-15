@@ -10,7 +10,11 @@
             <div id="goIndex" class="goindex activeindex">
 			    <h3><router-link v-bind:to='location' append>GAMES STATISTIC</router-link></h3>
 			</div>
-            <router-view v-bind:previuslink ='location'></router-view>
+            <transition>
+                <keep-alive>
+                    <router-view v-bind:previuslink ='location'></router-view>
+                </keep-alive>
+            </transition>
 
         </div>
     </div>
