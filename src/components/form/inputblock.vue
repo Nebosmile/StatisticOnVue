@@ -1,17 +1,8 @@
 <template lang="html">
   <div class='inputblock'>
      <timeinput v-if='inputarguments.time' :timeoption ='inputarguments.time'></timeinput>
+     <isactive v-if='inputarguments.activsession' :options ='inputarguments.activsession'></isactive>
 
-    <label v-if='inputarguments.activsession'>Sessions
-		<div class="inpContainer">
-			<div class="lineblock">
-				<input type="checkbox" name="opensession" value="1">Active
-			</div>
-			<div class="lineblock">
-				<input type="checkbox" name="clossession" value="0">Closed
-			</div>
-		</div>
-	</label>
     <label v-if='inputarguments.gamecategory'>Game category
 		<div class="inpContainer">
 			<select name="gameFilter" class="form-control">
@@ -48,6 +39,7 @@ import roundsinput from '@/components/form/roundsinput'
 import sortinput from '@/components/form/sortinput'
 import showbyinput from '@/components/form/showbyinput'
 import basecurrency from '@/components/form/basecurrency'
+import isactive from '@/components/form/isactive'
 
 
 
@@ -65,7 +57,8 @@ export default {
       roundsinput,
       sortinput,
       showbyinput,
-      basecurrency
+      basecurrency,
+      isactive
   },
   name: 'inputblock',
   data(){

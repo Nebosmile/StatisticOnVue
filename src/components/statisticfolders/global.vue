@@ -58,7 +58,7 @@ export default {
                     }
                 },
                 activsession:{
-                    status:"0"
+                    status:[]
                 }
             },
             blockinput2:{
@@ -137,7 +137,12 @@ export default {
             if (sCode == "") {
                 sCode = 0;
             }
-            var isActive='2';
+            var isActive=this.blockinput1.activsession.status;
+            if(isActive.length>1 || isActive.length ==0){
+                isActive ='2'
+            }else{
+                isActive =isActive[0];
+            }
             var basecurrency =this.blockinput3.basecurrency.activebasecur;
             var currency= this.blockinput3.currency.activecurrency;
             var startDate = taketime(this.blockinput1.time.timeof.data,this.blockinput1.time.timeof.time)
