@@ -21,6 +21,10 @@
       <tableStat v-if='(casinosummery.ansver && casinogame.state=="casino")' v-bind:options ='casinosummery'></tableStat>
       <tableStat v-if='(gamesummery.ansver && casinogame.state=="game")' v-bind:options ='gamesummery'></tableStat>
 
+      <tableStat v-if='(casinobasecurrency.ansver && casinogame.state=="casino")' v-bind:options ='casinobasecurrency'></tableStat>
+      <tableStat v-if='(gamebasecurrency.ansver && casinogame.state=="game")' v-bind:options ='gamebasecurrency'></tableStat>
+
+
       <tableStat v-if='(detailtablecasino.ansver && casinogame.state=="casino")'  v-bind:options ='detailtablecasino'></tableStat>
       <tableStat v-if='(detailtablegame.ansver && casinogame.state=="game")'  v-bind:options ='detailtablegame'></tableStat>
   </div>
@@ -135,7 +139,6 @@ export default {
                     {value:'sessions',name:'Sessions',status:'checked',default:'1'},
                     {value:'rounds',name:'Rounds',status:'checked',default:'1'},
                     {value:'users',name:'Users',status:'checked',default:'1'},
-                    // {value:'startDate',name:'Date',status:'checked',default:'1'},
                     {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
                     {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
                     {value:'incomeCash',name:'Income',status:'checked',default:'1'},
@@ -164,7 +167,6 @@ export default {
                     {value:'sessions',name:'Sessions',status:'checked',default:'1'},
                     {value:'rounds',name:'Rounds',status:'checked',default:'1'},
                     {value:'users',name:'Users',status:'checked',default:'1'},
-                    // {value:'startDate',name:'Date',status:'checked',default:'1'},
                     {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
                     {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
                     {value:'incomeCash',name:'Income',status:'checked',default:'1'},
@@ -212,6 +214,48 @@ export default {
                     {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
                 ]
             },
+            casinobasecurrency:{
+                tableoption:{
+                    name:'Base currency',
+                },
+                set_value:'',
+                ansver:'',
+                count:'',
+                initvalue:[
+                    {value: 'number', name:'Number',status:'checked',default:'1'},
+                    {value: 'casino', name:'Casino',status:'checked',default:'1'},
+                    {value:'users',name:'Users',status:'checked',default:'1'},
+                    {value:'games',name:'Games',status:'checked',default:'1'},
+                    {value:'sessions',name:'Sessions',status:'checked',default:'1'},
+                    {value:'rounds',name:'Rounds',status:'checked',default:'1'},
+                    {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
+                    {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
+                    {value:'incomeCash',name:'Income',status:'checked',default:'1'},
+                    {value:'currency',name:'Currency',status:'checked',default:'1'},
+                    {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
+                ]
+            },
+            gamebasecurrency:{
+                tableoption:{
+                    name:'Base currency',
+                },
+                set_value:'',
+                ansver:'',
+                count:'',
+                initvalue:[
+                    {value: 'number', name:'Number',status:'checked',default:'1'},
+                    {value:'game',name:'Games',status:'checked',default:'1'},
+                    {value:'users',name:'Users',status:'checked',default:'1'},
+                    {value: 'casinos', name:'Casinos',status:'checked',default:'1'},
+                    {value:'sessions',name:'Sessions',status:'checked',default:'1'},
+                    {value:'rounds',name:'Rounds',status:'checked',default:'1'},
+                    {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
+                    {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
+                    {value:'incomeCash',name:'Income',status:'checked',default:'1'},
+                    {value:'currency',name:'Currency',status:'checked',default:'1'},
+                    {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
+                ]
+            },
         }
     },
     //http://autorisation.bossgs.org/interstat/dev/api.php?getGlobal=casino&roundMin=0&roundMax=9999999&cId=5936952d643a9d093739451b&sCode=0&isActive=2&currency=&startDate=0&stopDate=0&uId=&baseCurrency=0
@@ -251,9 +295,13 @@ export default {
                         if(casinogame=='casino'){
                             appthis.detailtablecasino.ansver = data;
                             appthis.casinosummery.ansver=data.currency;
+                            appthis.casinobasecurrency.ansver=data.currency.baseCurrency;
+
+
                         }else if (casinogame=='game') {
                             appthis.detailtablegame.ansver = data;
                             appthis.gamesummery.ansver=data.currency;
+                            appthis.gamebasecurrency.ansver=data.currency.baseCurrency;
                         }
 
                         console.log(appthis.detailtablecasino.ansver);
