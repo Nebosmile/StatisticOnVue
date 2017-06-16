@@ -1,9 +1,13 @@
 <template lang="html">
   <div>
       <div class="hidewrap">
-          <div class="rowchik casino_game">
+        <div class="casino_game rowchik">
+			<p class="left">Filters</p>
+				<div id="casinoconsal" v-bind:class="{active:(casinogame.state=='casino')}" v-on:click='setcasino' class="activeBtn">Casino</div>
+				<div id="gameconsal" v-bind:class="{active:(casinogame.state=='game')}" v-on:click='setgame' class="activeBtn">Game</div>
+			<div class="hideButton right"></div>
+		</div>
 
-          </div>
           <div class="hidewrapitem">
               <form class='hideitem'>
                   <inputblock v-bind:inputarguments='blockinput1'></inputblock>
@@ -15,7 +19,8 @@
           </div>
       </div>
 
-      <tableStat v-if='detailtable.ansver' tablename='Summary by currency' v-bind:options ='detailtable'></tableStat>
+      <tableStat v-if='(detailtablecasino.ansver && casinogame.state=="casino")' tablename='Detailed info' v-bind:options ='detailtablecasino'></tableStat>
+      <tableStat v-if='(detailtablegame.ansver && casinogame.state=="game")' tablename='Detailed info' v-bind:options ='detailtablegame'></tableStat>
   </div>
 </template>
 
@@ -105,7 +110,19 @@ export default {
                 reset:true,
                 clear:true,
             },
-            detailtable:{
+            casinogame:{
+                state:'casino'
+            },
+            detailtablecasino:{
+                tableoption:{
+                    exellink:'',
+                    navigationlist:{
+                        currenpage:'1',
+                        count:'1',
+                        allpage:'1'
+
+                    }
+                },
                 set_value:'',
                 ansver:'',
                 count:'',
@@ -115,7 +132,35 @@ export default {
                     {value:'sessions',name:'Sessions',status:'checked',default:'1'},
                     {value:'rounds',name:'Rounds',status:'checked',default:'1'},
                     {value:'users',name:'Users',status:'checked',default:'1'},
-                    {value:'startDate',name:'Date',status:'checked',default:'1'},
+                    // {value:'startDate',name:'Date',status:'checked',default:'1'},
+                    {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
+                    {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
+                    {value:'incomeCash',name:'Income',status:'checked',default:'1'},
+                    {value:'currency',name:'Currency',status:'checked',default:'1'},
+                    {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
+                    {value:'totalBetCoins',name:'totalBetCoins',status:'hide',default:'0'},
+                    {value:'totalWinCoins',name:'totalWinCoins',status:'hide',default:'0'},
+                ]
+            },
+            detailtablegame:{
+                tableoption:{
+                    exellink:'',
+                    navigationlist:{
+                        currenpage:'1',
+                        count:'1',
+                        allpage:'1'
+                    }
+                },
+                set_value:'',
+                ansver:'',
+                count:'',
+                initvalue:[
+                    {value: 'number', name:'Number',status:'checked',default:'1'},
+                    {value:'game', name:'Game',status:'checked',default:'1'},
+                    {value:'sessions',name:'Sessions',status:'checked',default:'1'},
+                    {value:'rounds',name:'Rounds',status:'checked',default:'1'},
+                    {value:'users',name:'Users',status:'checked',default:'1'},
+                    // {value:'startDate',name:'Date',status:'checked',default:'1'},
                     {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
                     {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
                     {value:'incomeCash',name:'Income',status:'checked',default:'1'},
@@ -148,10 +193,10 @@ export default {
             var startDate = taketime(this.blockinput1.time.timeof.data,this.blockinput1.time.timeof.time)
             var stopDate = taketime(this.blockinput1.time.timeto.data,this.blockinput1.time.timeto.time)
             var uId = this.blockinput2.userid.id;
-            var baseCurrency;
+            var casinogame = this.casinogame.state;
 
 
-            var newlink = link+statlink+'/api.php?getGlobal=casino'+'&roundMin='+RoundMin + '&roundMax=' + roundMax +'&cId='+casinoId+'&sCode='+sCode+'&isActive='+isActive+'&currency='+currency+'&startDate='+startDate+'&stopDate='+stopDate+'&uId='+uId+'&baseCurrency='+basecurrency;
+            var newlink = link+statlink+'/api.php?getGlobal=' +casinogame+'&roundMin='+RoundMin + '&roundMax=' + roundMax +'&cId='+casinoId+'&sCode='+sCode+'&isActive='+isActive+'&currency='+currency+'&startDate='+startDate+'&stopDate='+stopDate+'&uId='+uId+'&baseCurrency='+basecurrency;
             console.log(newlink);
 
             var appthis = this;
@@ -161,9 +206,13 @@ export default {
                 type:'GET',
                 success:function (data) {
                     if(data.count){
-                        appthis.count='Получено записей '+data.count;
-                        appthis.detailtable.ansver = data;
-                        console.log(appthis.detailtable.ansver);
+                        if(casinogame=='casino'){
+                            appthis.detailtablecasino.ansver = data;
+                        }else if (casinogame=='game') {
+                            appthis.detailtablegame.ansver = data;
+                        }
+
+                        console.log(appthis.detailtablecasino.ansver);
                     }else{
                         appthis.count='Записепй не найдено';
                     }
@@ -171,6 +220,12 @@ export default {
                 }
             })
 
+        },
+        setcasino:function functionName() {
+            this.casinogame.state ='casino'
+        },
+        setgame:function functionName() {
+            this.casinogame.state ='game'
         }
     },
 
