@@ -19,11 +19,11 @@
             </div>
         </div>
         <div class="rowchik">
-			<p class="left">Detailed info</p>
+			<p class="left">{{options.tableoption.name}}</p>
 
 			<div class="hideButton right"></div>
 			<div v-on:click='seefilter' class="filterButton right"></div>
-			<a id="consalExel" class="exel right"></a>
+			<a v-if='options.tableoption.exellink' id="consalExel" class="exel right"></a>
 			<p class="right">
 				Records<span class="showNow">1-1</span> of <span class="showpage">1</span>
 			</p>
@@ -74,9 +74,6 @@ export default {
     props:{
         options:{
             type: Object
-        },
-        tablename:{
-            type: String
         }
     },
     methods:{

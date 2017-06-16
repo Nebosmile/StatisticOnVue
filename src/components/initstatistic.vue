@@ -161,4 +161,28 @@ ul li{
 .exel:hover {
     background: url(~@/assets/excel_hover.png) no-repeat;
 }
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+tr {
+    background: #ececec;
+}
+th {
+    border: 1px solid #ddd;
+    line-height: 1.42857143;
+    border-bottom: 3px solid #8d8d8d !important;
+    box-shadow: 0 3px 0 0 #8d8d8d;
+}
+tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+tr>td, tr>th{
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
 </style>

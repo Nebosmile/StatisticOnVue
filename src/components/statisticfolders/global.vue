@@ -18,9 +18,11 @@
               </form>
           </div>
       </div>
+      <tableStat v-if='(casinosummery.ansver && casinogame.state=="casino")' v-bind:options ='casinosummery'></tableStat>
+      <tableStat v-if='(gamesummery.ansver && casinogame.state=="game")' v-bind:options ='gamesummery'></tableStat>
 
-      <tableStat v-if='(detailtablecasino.ansver && casinogame.state=="casino")' tablename='Detailed info' v-bind:options ='detailtablecasino'></tableStat>
-      <tableStat v-if='(detailtablegame.ansver && casinogame.state=="game")' tablename='Detailed info' v-bind:options ='detailtablegame'></tableStat>
+      <tableStat v-if='(detailtablecasino.ansver && casinogame.state=="casino")'  v-bind:options ='detailtablecasino'></tableStat>
+      <tableStat v-if='(detailtablegame.ansver && casinogame.state=="game")'  v-bind:options ='detailtablegame'></tableStat>
   </div>
 </template>
 
@@ -115,6 +117,7 @@ export default {
             },
             detailtablecasino:{
                 tableoption:{
+                    name:'Detailed info',
                     exellink:'',
                     navigationlist:{
                         currenpage:'1',
@@ -144,6 +147,7 @@ export default {
             },
             detailtablegame:{
                 tableoption:{
+                    name:'Detailed info',
                     exellink:'',
                     navigationlist:{
                         currenpage:'1',
@@ -168,6 +172,44 @@ export default {
                     {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
                     {value:'totalBetCoins',name:'totalBetCoins',status:'hide',default:'0'},
                     {value:'totalWinCoins',name:'totalWinCoins',status:'hide',default:'0'},
+                ]
+            },
+            casinosummery:{
+                tableoption:{
+                    name:'Summary by currency',
+                },
+                set_value:'',
+                ansver:'',
+                count:'',
+                initvalue:[
+                    {value: 'number', name:'Number',status:'checked',default:'1'},
+                    {value:'sessions',name:'Sessions',status:'checked',default:'1'},
+                    {value:'rounds',name:'Rounds',status:'checked',default:'1'},
+                    {value:'users',name:'Users',status:'checked',default:'1'},
+                    {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
+                    {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
+                    {value:'incomeCash',name:'Income',status:'checked',default:'1'},
+                    {value:'currency',name:'Currency',status:'checked',default:'1'},
+                    {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
+                ]
+            },
+            gamesummery:{
+                tableoption:{
+                    name:'Summary by currency',
+                },
+                set_value:'',
+                ansver:'',
+                count:'',
+                initvalue:[
+                    {value: 'number', name:'Number',status:'checked',default:'1'},
+                    {value:'sessions',name:'Sessions',status:'checked',default:'1'},
+                    {value:'rounds',name:'Rounds',status:'checked',default:'1'},
+                    {value:'users',name:'Users',status:'checked',default:'1'},
+                    {value:'totalBetCash',name:'Total bets cash',status:'checked',default:'1'},
+                    {value:'totalWinCash',name:'Total wins cash',status:'checked',default:'1'},
+                    {value:'incomeCash',name:'Income',status:'checked',default:'1'},
+                    {value:'currency',name:'Currency',status:'checked',default:'1'},
+                    {value:'backCash',name:'%Back cash',status:'checked',default:'1'},
                 ]
             },
         }
@@ -208,8 +250,10 @@ export default {
                     if(data.count){
                         if(casinogame=='casino'){
                             appthis.detailtablecasino.ansver = data;
+                            appthis.casinosummery.ansver=data.currency;
                         }else if (casinogame=='game') {
                             appthis.detailtablegame.ansver = data;
+                            appthis.gamesummery.ansver=data.currency;
                         }
 
                         console.log(appthis.detailtablecasino.ansver);
