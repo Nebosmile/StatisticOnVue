@@ -1,30 +1,33 @@
 <template lang="html">
+    <div>
+
+
     <label for="gameFilter">Sort by
   	   <div class="inpContainer">
-  		   <select name="sort" disabled class="form-control">
-  			   <option selected="" value="startdate">Start Date</option>
-  			   <option value="casinoID">Casino</option>
-  			   <option value="UserID">Users</option>
-  			   <option value="SessionID">Sessions</option>
-  			   <option value="Game">Game</option>
-  			   <option value="rounds">Rounds</option>
-  			   <option value="total_bet_coins">Total bet coins</option>
-  			   <option value="total_win_coins">Total win coins</option>
-  			   <option value="incom_coins">Income coins</option>
-  			   <option value="back_coins">back in coins</option>
-  			   <option value="bet_cash">Total bet cash</option>
-  			   <option value="win_cash">Total win cash</option>
-  			   <option value="incom_cash">Income cash</option>
-  			   <option value="back_cash">back in cash</option>
-  			   <option value="currency">currency</option>
+  		   <select name="sort" v-bind:disabled="options.sort.disabled" class="form-control">
+  			   <option v-for='(key, index) in options.sort.sortby' v-bind:value='index'>{{key.name}}</option>
   		   </select>
   	    </div>
   	</label>
+    <label v-if='options.sort.sorttype'  for="show">Sort type
+		<div class="inpContainer">
+			<select v-model='options.sort.sorttype' name="up_down" class="form-control">
+				<option value="1">Ascending</option>
+				<option value="2">Descendingly</option>
+			</select>
+		</div>
+	</label>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'sortinput'
+  name: 'sortinput',
+  props:{
+      options:{
+          type: Object
+      }
+  }
 }
 </script>
 

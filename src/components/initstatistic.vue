@@ -183,6 +183,13 @@ tbody>tr:nth-of-type(odd) {
 tr>td, tr>th{
     border: 1px solid #ddd;
     text-align: left;
-    padding: 8px;
+    padding:8px;
+    font-size: 12px;
+}
+.inputblock {
+    line-height: 2;
+}
+input, select{
+    padding: 5px;
 }
 </style>

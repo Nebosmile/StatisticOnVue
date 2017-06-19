@@ -24,9 +24,10 @@
 
     <!-- <currencyinput  v-if='inputarguments.currency'></currencyinput> -->
 
-    <sortinput v-if='inputarguments.sort'></sortinput>
+    <sortinput v-if='inputarguments.sort' v-bind:options ='inputarguments'></sortinput>
 
     <showbyinput v-bind:options ='inputarguments' v-if='inputarguments.showby'></showbyinput>
+    <sessioninput v-bind:options ='inputarguments' v-if='inputarguments.sessionid'> </sessioninput>
 </div>
 </template>
 
@@ -40,6 +41,8 @@ import sortinput from '@/components/form/sortinput'
 import showbyinput from '@/components/form/showbyinput'
 import basecurrency from '@/components/form/basecurrency'
 import isactive from '@/components/form/isactive'
+import sessioninput from '@/components/form/sessioninput'
+
 
 
 
@@ -58,7 +61,8 @@ export default {
       sortinput,
       showbyinput,
       basecurrency,
-      isactive
+      isactive,
+      sessioninput
   },
   name: 'inputblock',
   data(){

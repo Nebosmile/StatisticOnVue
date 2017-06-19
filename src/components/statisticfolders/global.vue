@@ -14,7 +14,7 @@
                   <inputblock v-bind:inputarguments='blockinput2'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput3'></inputblock>
                   <inputblock v-bind:inputarguments='blockinput4'></inputblock>
-                  <buttonblockinput v-on:get='getGlobal' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
+                  <buttonblockinput v-on:get='getGlobal' v-on:clear='cleartable' v-on:reset='resetform([blockinput1,blockinput2,blockinput3,blockinput4])' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
               </form>
           </div>
       </div>
@@ -102,7 +102,7 @@ export default {
                     to:'',
                 },
                 sort:{
-                    status:'disabled',
+                    disabled:true,
                 },
                 showby:{
                     status:'enabled',
@@ -119,10 +119,13 @@ export default {
             casinogame:{
                 state:'casino'
             },
+
             detailtablecasino:{
                 tableoption:{
                     name:'Detailed info',
-                    exellink:'',
+                    exellink:{
+                        link:''
+                    },
                     navigationlist:{
                         currenpage:'1',
                         count:'1',
@@ -151,7 +154,9 @@ export default {
             detailtablegame:{
                 tableoption:{
                     name:'Detailed info',
-                    exellink:'',
+                    exellink:{
+                        link:''
+                    },
                     navigationlist:{
                         currenpage:'1',
                         count:'1',
@@ -318,7 +323,47 @@ export default {
         },
         setgame:function functionName() {
             this.casinogame.state ='game'
+        },
+        cleartable:function () {
+            if(this.casinogame.state=='casino'){
+                this.clearall(['casinosummery','casinobasecurrency','detailtablecasino'])
+            }else{
+                this.clearall(['gamesummery','gamebasecurrency','detailtablegame'])
+            }
+
+        },
+        clearall:function (arr) {
+            var newthis = this;
+            arr.forEach(function (item) {
+                newthis[item].ansver=''
+            })
+        },
+        resetform:function (arr) {
+            var newthis = this;
+            console.log('reset');
+            arr.forEach(function (item) {
+                if(item.time){item.time.timeperiod='all'}
+                if(item.activsession){item.activsession.status=[]}
+                if(item.gamecategory){item.gamecategory='all'}
+                if(item.gameblock){item.gameblock.activegame=''}
+                if(item.sessionid){item.sessionid.id=''}
+                if(item.userid){item.userid.id=''}
+                if(item.casinoblock){item.casinoblock.casinoid=''}
+                if(item.currency){item.currency.activecurrency=''}
+                if(item.basecurrency){item.basecurrency.activebasecur='0'}
+                if(item.rounds){item.rounds.from='';item.rounds.to='';}
+                if(item.sort){item.sort.active='startDate'}
+            })
         }
+        // <tableStat v-if='(casinosummery.ansver && casinogame.state=="casino")' v-bind:options ='casinosummery'></tableStat>
+        // <tableStat v-if='(gamesummery.ansver && casinogame.state=="game")' v-bind:options ='gamesummery'></tableStat>
+        //
+        // <tableStat v-if='(casinobasecurrency.ansver && casinogame.state=="casino")' v-bind:options ='casinobasecurrency'></tableStat>
+        // <tableStat v-if='(gamebasecurrency.ansver && casinogame.state=="game")' v-bind:options ='gamebasecurrency'></tableStat>
+        //
+        //
+        // <tableStat v-if='(detailtablecasino.ansver && casinogame.state=="casino")'  v-bind:options ='detailtablecasino'></tableStat>
+        // <tableStat v-if='(detailtablegame.ansver && casinogame.state=="game")'  v-bind:options ='detailtablegame'></tableStat>
     },
 
 

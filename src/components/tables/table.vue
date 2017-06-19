@@ -50,9 +50,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for='(item, index) in options.ansver.info'>
+                    <tr v-for='(item, index) in (options.ansver.info || options.ansver)'>
                         <td v-if='Checkstatus(elem)' v-for='(elem,index2) in options.initvalue'>
-                            {{item[elem.value] || index + 1}}
+                            {{setvalue(item[elem.value], elem.value, index + 1)}}
                         </td>
                     </tr>
                 </tbody>
@@ -101,6 +101,12 @@ export default {
                     item.status='hide'
                 }
             })
+        },
+        setvalue(obj,name, index){
+            if(name =='number') return index
+            else {
+                return String(obj)
+            }
         }
 
     }
