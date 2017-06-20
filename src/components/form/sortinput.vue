@@ -4,14 +4,14 @@
 
     <label for="gameFilter">Sort by
   	   <div class="inpContainer">
-  		   <select name="sort" v-bind:disabled="options.sort.disabled" class="form-control">
-  			   <option v-for='(key, index) in options.sort.sortby' v-bind:value='index'>{{key.name}}</option>
+  		   <select name="sort" v-bind:disabled="options.disabled" class="form-control">
+  			   <option v-for='(key, index) in options.sortby' v-bind:value='index'>{{key.name}}</option>
   		   </select>
   	    </div>
   	</label>
-    <label v-if='options.sort.sorttype'  for="show">Sort type
+    <label v-if='options.sorttype'  for="show">Sort type
 		<div class="inpContainer">
-			<select v-model='options.sort.sorttype' name="up_down" class="form-control">
+			<select v-model='options.sorttype' name="up_down" class="form-control">
 				<option value="1">Ascending</option>
 				<option value="2">Descendingly</option>
 			</select>

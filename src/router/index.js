@@ -20,10 +20,7 @@ function setstate(route) {
     statlink=route.params.location
 }
 // console.log(statlink);
-function taketimeTo(value1,value2) {
-    var time = value1 + "T" + value2
-    return Date.parse(time);
-}
+
 export default new Router({
   routes: [
     {

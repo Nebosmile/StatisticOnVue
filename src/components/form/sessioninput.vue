@@ -1,10 +1,10 @@
 <template lang="html">
     <label>Session ID
    	   <div class="inpContainer">
-  			<input type="text" name="sessionid" class="form-control" v-model='options.sessionid.id'>
+  			<input type="text" name="sessionid" class="form-control" v-model='options.id'>
   	   </div>
        <div>
-           {{options.sessionid.id}}
+           {{options.id}}
        </div>
   	</label>
 </template>

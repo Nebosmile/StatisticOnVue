@@ -24,18 +24,18 @@
 			<div class="hideButton right"></div>
 			<div v-on:click='seefilter' class="filterButton right"></div>
 			<a v-if='options.tableoption.exellink' id="consalExel" class="exel right"></a>
-			<p class="right">
-				Records<span class="showNow">1-1</span> of <span class="showpage">1</span>
+			<p v-if='options.tableoption.navigationlist' class="right">
+				Records<span class="showNow"> {{options.tableoption.navigationlist.records}}</span> of <span class="showpage">{{options.tableoption.navigationlist.count}}</span>
 			</p>
 
 			<div v-if='options.tableoption.navigationlist' class="start navigateCenter">
-				<input class="firstlist" type="button" value="|<">
-				<input class="previoslist" type="button" value="<">
+				<input v-on:click ='firstlist' class="firstlist" type="button" value="|<">
+				<input v-on:click ='prevlist' class="previoslist" type="button" value="<">
 				<p>Page</p>
-				<input type="text" class="pagenumber" name="pagenumber" value="1">
-				<p>of <span class="allpages">1</span></p>
-				<input class="nextlist" type="button" value=">">
-				<input class="lastlist" type="button" value=">|">
+				<input type="text" class="pagenumber" name="pagenumber" v-model='this.options.tableoption.navigationlist.currenpage'>
+				<p>of <span class="allpages">{{this.options.tableoption.navigationlist.allpage}}</span></p>
+				<input v-on:click ='nextlist' class="nextlist" type="button" value=">">
+				<input v-on:click ='lastlist' class="lastlist" type="button" value=">|">
 			</div>
 
 		</div>
@@ -103,11 +103,40 @@ export default {
             })
         },
         setvalue(obj,name, index){
-            if(name =='number') return index
+            if(name =='number'){
+                if(this.options.tableoption.navigationlist){
+                    return index + this.options.tableoption.navigationlist.step*(this.options.tableoption.navigationlist.currenpage-1);
+                }else{
+                    return index;
+                }
+
+            }
             else {
                 return String(obj)
             }
-        }
+        },
+        firstlist(){
+            this.options.tableoption.navigationlist.currenpage =1;
+            this.$emit('get')
+        },
+        lastlist(){
+            this.options.tableoption.navigationlist.currenpage =this.options.tableoption.navigationlist.allpage;
+            this.$emit('get')
+        },
+        prevlist(){
+            if(this.options.tableoption.navigationlist.currenpage ==1){return}
+            else{
+                this.options.tableoption.navigationlist.currenpage= Number(this.options.tableoption.navigationlist.currenpage) -1
+                this.$emit('get')
+            }
+        },
+        nextlist(){
+            if(this.options.tableoption.navigationlist.currenpage ==this.options.tableoption.navigationlist.allpage){return}
+            else{
+                this.options.tableoption.navigationlist.currenpage= Number(this.options.tableoption.navigationlist.currenpage) +1
+                this.$emit('get')
+            }
+        },
 
     }
 }

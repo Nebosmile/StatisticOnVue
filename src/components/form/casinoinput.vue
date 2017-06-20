@@ -2,7 +2,7 @@
 <div>
     <label>Casino
 		<div class="inpContainer">
-			<select v-on:change = 'getcurrency' name="casinoFilter" class="form-control" v-model='currencyoption.casinoblock.casinoid'>
+			<select v-on:change = 'getcurrency' name="casinoFilter" class="form-control" v-model='currencyoption.casinoid'>
                 <option value="all">All</option>
                 <option v-for='(item, index) in casinolist' v-bind:value="item.cid">{{item.casinoName}}</option>
             </select>
@@ -11,7 +11,7 @@
 
         <label>Casino ID
             <div class="inpContainer">
-                   <input v-on:click='generete' name="casinoId" type="text" :value='currencyoption.casinoblock.casinoid' class="form-control">
+                   <input v-on:click='generete' name="casinoId" type="text" :value='currencyoption.casinoid' class="form-control">
             </div>
         </label>
         <label v-if='currencyoption.currency'>Currency
@@ -46,7 +46,7 @@ export default {
             vm.$emit('test');
         },
         getcurrency:function() {
-            var idcasino = this.currencyoption.casinoblock.casinoid;
+            var idcasino = this.currencyoption.casinoid;
             if(idcasino =='all' || !idcasino){
                 idcasino = 'all';
             }else if(idcasino){

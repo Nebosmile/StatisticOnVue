@@ -1,7 +1,7 @@
 <template lang="html">
     <label>Base currency
   		<div class="inpContainer">
-  			<select v-model='options.basecurrency.activebasecur' name="basecurrency" class="form-control">
+  			<select v-model='options.activebasecur' name="basecurrency" class="form-control">
   		    	<option value="0">default</option>
   		    	<option value="USD">USD</option>
   		   		<option value="EUR">EUR</option>
@@ -15,7 +15,7 @@
   			</select>
   		</div>
         <div>
-            {{options.basecurrency.activebasecur}}
+            {{options.activebasecur}}
         </div>
   	</label>
 </template>

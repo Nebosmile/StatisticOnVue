@@ -2,7 +2,7 @@
   <div>
         <label >Game
 			<div class="inpContainer">
-				<select name="slotsIdFilter" v-model='gameinputoption.gameblock.activegame' class="form-control">
+				<select name="slotsIdFilter" v-model='gameinputoption.activegame' class="form-control">
                     <option value="0">All</option>
                     <option v-for='(item, index) in gamelist' v-bind:value="item.sCode">{{item.sName}}</option>
                 </select>
@@ -11,7 +11,7 @@
         <div>
 			<label>Game ID
 			   <div class="inpContainer">
-				   <input name="gameId" type="text" class="form-control" v-bind:value='gameinputoption.gameblock.activegame'>
+				   <input name="gameId" type="text" class="form-control" v-bind:value='gameinputoption.activegame'>
 			   </div>
 			</label>
 		</div>

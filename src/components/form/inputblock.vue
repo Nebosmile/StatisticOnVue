@@ -3,14 +3,7 @@
      <timeinput v-if='inputarguments.time' :timeoption ='inputarguments.time'></timeinput>
      <isactive v-if='inputarguments.activsession' :options ='inputarguments.activsession'></isactive>
 
-    <label v-if='inputarguments.gamecategory'>Game category
-		<div class="inpContainer">
-			<select name="gameFilter" class="form-control">
-				<option value="!">Videoslots</option>
-				<option value="!">All category</option>
-            </select>
-		</div>
-	</label>
+     <gamecategoryinput v-if='inputarguments.gamecategory'></gamecategoryinput>
 
     <gameinput v-bind:gameinputoption ='inputarguments' v-if='inputarguments.gameblock'></gameinput>
 
@@ -42,6 +35,7 @@ import showbyinput from '@/components/form/showbyinput'
 import basecurrency from '@/components/form/basecurrency'
 import isactive from '@/components/form/isactive'
 import sessioninput from '@/components/form/sessioninput'
+import gamecategoryinput from '@/components/form/gamecategoryinput'
 
 
 
@@ -62,7 +56,8 @@ export default {
       showbyinput,
       basecurrency,
       isactive,
-      sessioninput
+      sessioninput,
+      gamecategoryinput
   },
   name: 'inputblock',
   data(){

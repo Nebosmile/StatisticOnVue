@@ -9,10 +9,29 @@
 
               <div class="hidewrapitem">
                   <form class='hideitem'>
-                      <inputblock v-bind:inputarguments='blockinput1'></inputblock>
-                      <inputblock v-bind:inputarguments='blockinput2'></inputblock>
-                      <inputblock v-bind:inputarguments='blockinput3'></inputblock>
-                      <inputblock v-bind:inputarguments='blockinput4'></inputblock>
+                      <div class='inputblock'>
+                          <timeinput v-if='time' :timeoption ='time'></timeinput>
+                          <isactive v-if='activsession' :options ='activsession'></isactive>
+                      </div>
+
+                      <div class='inputblock'>
+                          <gamecategoryinput v-if='gamecategory'></gamecategoryinput>
+                          <gameinput v-bind:gameinputoption ='gameblock' v-if='gameblock'></gameinput>
+                          <useridinput v-bind:useroption ='userid'  v-if='userid'></useridinput>
+                          <sessioninput v-bind:options ='sessionid' v-if='sessionid'> </sessioninput>
+                      </div>
+
+                      <div class='inputblock'>
+                          <casinoinput v-bind:currencyoption ='casinoblock'  v-if='casinoblock'></casinoinput>
+                          <basecurrency v-bind:options ='basecurrency' v-if='basecurrency' ></basecurrency>
+                      </div>
+
+                      <div class='inputblock'>
+                          <roundsinput v-bind:options ='rounds' v-if='rounds'></roundsinput>
+                          <sortinput v-if='sort' v-bind:options ='sort'></sortinput>
+                          <showbyinput v-bind:options ='showby' v-if='showby'></showbyinput>
+                      </div>
+
                        <buttonblockinput v-on:get='getSession' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
                   </form>
               </div>
@@ -23,101 +42,117 @@
           <tableStat v-if='sessioncurrency.ansver' v-bind:options ='sessioncurrency'></tableStat>
 
 
-          <tableStat v-if='(sessiondetailed.ansver)'  v-bind:options ='sessiondetailed'></tableStat>
+          <tableStat v-on:get='getSession' v-if='(sessiondetailed.ansver)'  v-bind:options ='sessiondetailed'></tableStat>
       </div>
   </div>
 </template>
 
 <script>
 import tableStat from '@/components/tables/table'
-import inputblock from '@/components/form/inputblock'
+// import inputblock from '@/components/form/inputblock'
 import buttonblockinput from '@/components/form/buttonblockinput'
+import timeinput from '@/components/form/timeinput'
+import gameinput from '@/components/form/gameinput'
+import casinoinput from '@/components/form/casinoinput'
+import useridinput from '@/components/form/useridinput'
+import roundsinput from '@/components/form/roundsinput'
+import sortinput from '@/components/form/sortinput'
+import showbyinput from '@/components/form/showbyinput'
+import basecurrency from '@/components/form/basecurrency'
+import isactive from '@/components/form/isactive'
+import sessioninput from '@/components/form/sessioninput'
+import gamecategoryinput from '@/components/form/gamecategoryinput'
 
 export default {
     name:'session',
     components:{
         tableStat,
-        inputblock,
-        buttonblockinput
+        // inputblock,
+        buttonblockinput,
+        timeinput,
+        gameinput,
+        casinoinput,
+        useridinput,
+        roundsinput,
+        sortinput,
+        showbyinput,
+        basecurrency,
+        isactive,
+        sessioninput,
+        gamecategoryinput
     },
     data(){
         return{
-            blockinput1:{
-                time:{
-                    id:'1',
-                    timeperiod:'all',
-                    timeof:{
-                        status:'enabled',
-                        data:'2017-01-01',
-                        time:'00:00:00',
-                    },
-                    timeto:{
-                        status:'enabled',
-                        data:'',
-                        time:'',
-                    }
+            time:{
+                id:'1',
+                timeperiod:'all',
+                timeof:{
+                    status:'enabled',
+                    data:'2017-01-01',
+                    time:'00:00:00',
                 },
-                activsession:{
-                    status:[]
+                timeto:{
+                    status:'enabled',
+                    data:'',
+                    time:'',
                 }
             },
-            blockinput2:{
-                gamecategory:'all',
-                gameblock:{
-                    activegame:''
-                },
-                sessionid:{
-                    id:''
-                },
-                userid:{
-                    id:''
-                },
+            activsession:{
+                status:[]
             },
-            blockinput3:{
-                casinoblock:{
-                    casinoid:''
-                },
-
+            gamecategory:'all',
+            gameblock:{
+                activegame:''
+            },
+            userid:{
+                id:''
+            },
+            casinoblock:{
+                casinoid:'',
                 currency:{
                     status:'enabled',
                     list:[],
                     activecurrency:''
                 },
-                basecurrency:{
-                    activebasecur:'0'
-                }
-            },
-            blockinput4:{
-                rounds:{
-                    from:'',
-                    to:'',
-                },
-                sort:{
-                    disabled:false,
-                    sortby:{
-                        startDate:{name:'Start Date',th:''},
-                        endDate:{name:'End Date',th:''},
-                        rounds:{name:'Rounds',th:''},
-                        coinsBet:{name:'Total bet coins',th:''},
-                        coinsWin:{name:'Total win coins',th:''},
-                        incomeCoins:{name:'Income coins',th:''},
-                        backCoins:{name:'back in coins',th:''},
-                        cashBet:{name:'Total bet cash',th:''},
-                        cashWin:{name:'Total win cash',th:''},
-                        incomeCash:{name:'Income cash',th:''},
-                        backCash:{name:'back in cash',th:''},
-                        ip:{name:'ip',th:''},
 
-                    },
-                    active:'startDate',
-                    sorttype:'1'
+            },
+            sessionid:{
+                id:''
+            },
+
+
+            basecurrency:{
+                activebasecur:'0'
+            },
+            rounds:{
+                from:'',
+                to:'',
+            },
+            sort:{
+                disabled:false,
+                sortby:{
+                    startDate:{name:'Start Date',th:''},
+                    endDate:{name:'End Date',th:''},
+                    rounds:{name:'Rounds',th:''},
+                    coinsBet:{name:'Total bet coins',th:''},
+                    coinsWin:{name:'Total win coins',th:''},
+                    incomeCoins:{name:'Income coins',th:''},
+                    backCoins:{name:'back in coins',th:''},
+                    cashBet:{name:'Total bet cash',th:''},
+                    cashWin:{name:'Total win cash',th:''},
+                    incomeCash:{name:'Income cash',th:''},
+                    backCash:{name:'back in cash',th:''},
+                    ip:{name:'ip',th:''},
+
                 },
-                showby:{
-                    status:'enabled',
-                    arr:['50','100','200','500','1000'],
-                    active:'50',
-                    all:'99999999',
-                },
+                active:'startDate',
+                sorttype:'1'
+            },
+            showby:{
+                status:'enabled',
+                arr:['50','100','200','500','1000'],
+                active:'50',
+                all:'99999999',
             },
             buttonblock:{
                 sumbit:true,
@@ -133,8 +168,9 @@ export default {
                     navigationlist:{
                         currenpage:'1',
                         count:'1',
-                        allpage:'1'
-
+                        allpage:'1',
+                        records:'all',
+                        step:''
                     }
                 },
                 set_value:'',
@@ -215,30 +251,31 @@ export default {
 
     methods:{
         getSession:function () {
-            var start = this.sessiondetailed.tableoption.navigationlist.currenpage;
-            var step = this.blockinput4.showby.active;
-            var RoundMin=this.blockinput4.rounds.from;
-            var roundMax=this.blockinput4.rounds.to;
+            var start = ((this.sessiondetailed.tableoption.navigationlist.currenpage -1)*this.showby.active)+1;
+            var step = this.showby.active;
+            this.sessiondetailed.tableoption.navigationlist.step =step;
+            var RoundMin=this.rounds.from;
+            var roundMax=this.rounds.to;
             if(roundMax==''){
                 roundMax='999999999'
             }
-            var casinoId=this.blockinput3.casinoblock.casinoid;
-            var sCode= this.blockinput2.gameblock.activegame;
+            var casinoId=this.casinoblock.casinoid;
+            var sCode= this.gameblock.activegame;
             if (sCode == "") {
                 sCode = 0;
             }
-            var isActive=this.blockinput1.activsession.status;
+            var isActive=this.activsession.status;
             if(isActive.length>1 || isActive.length ==0){
                 isActive ='2'
             }else{
                 isActive =isActive[0];
             }
-            var basecurrency =this.blockinput3.basecurrency.activebasecur;
-            var currency= this.blockinput3.currency.activecurrency;
-            var startDate = taketime(this.blockinput1.time.timeof.data,this.blockinput1.time.timeof.time)
-            var stopDate = taketime(this.blockinput1.time.timeto.data,this.blockinput1.time.timeto.time)
-            var uId = this.blockinput2.userid.id;
-            var sort = this.blockinput4.sort.active+this.blockinput4.sort.sorttype;
+            var basecurrency =this.basecurrency.activebasecur;
+            var currency= this.casinoblock.currency.activecurrency;
+            var startDate = taketime(this.time.timeof.data,this.time.timeof.time)
+            var stopDate = taketime(this.time.timeto.data,this.time.timeto.time)
+            var uId = this.userid.id;
+            var sort = this.sort.active+this.sort.sorttype;
 
     // http://autorisation.bossgs.org/interstat/dev/api.php?getGameSession&start=1&step=50&startDate=0&stopDate=0&isActive=2&currency=&cId=&sCode=0&roundMin=0&roundMax=9999999&uId=&sort=startDate1&baseCurrency=0
 
@@ -246,16 +283,17 @@ export default {
             console.log(newlink);
 
             var appthis = this;
-            console.log(appthis.sessiondetailed.ansver);
             $.ajax({
                 url:newlink,
                 dataType:'JSON',
                 type:'GET',
                 success:function (data) {
+                    console.log(data);
                     if(data.count){
                         appthis.sessiondetailed.ansver = data;
                         appthis.sessionsummary.ansver=data.summary;
                         appthis.sessioncurrency.ansver=data.currency;
+                        appthis.setnavigation(appthis.sessiondetailed, data)
 
 
                     }else{
@@ -266,6 +304,27 @@ export default {
             })
 
         },
+        // tableoption:{
+        //     name:'Detailed info',
+        //     exellink:{
+        //         link:''
+        //     },
+        //     navigationlist:{
+        //         currenpage:'1',
+        //         count:'1',
+        //         allpage:'1',
+        //         records:'all'
+        //
+        //     }
+        // },
+        setnavigation:function (elem, obj) {
+            elem.tableoption.navigationlist.count= obj.count;
+            elem.tableoption.navigationlist.allpage= Math.ceil(obj.count / this.showby.active)
+            var start = (elem.tableoption.navigationlist.currenpage-1)*this.showby.active;
+            var last = (elem.tableoption.navigationlist.currenpage)*this.showby.active;
+            if (last>=obj.count){last = obj.count}
+            elem.tableoption.navigationlist.records = Number(start + 1) + "-" + last;
+        }
     }
 }
 </script>

@@ -1,12 +1,12 @@
 <template lang="html">
         <label for="show">Show by
            <div class="inpContainer">
-               <select v-model='options.showby.active' name="show" class="form-control">
-                  <option v-for='key in options.showby.arr' v-bind:value="key">{{key}}</option>
-                  <option v-bind:value='options.showby.all' >all</option>
+               <select v-model='options.active' name="show" class="form-control">
+                  <option v-for='key in options.arr' v-bind:value="key">{{key}}</option>
+                  <option v-bind:value='options.all' >all</option>
                </select>
                <div>
-                   {{options.showby.active}}
+                   {{options.active}}
                </div>
            </div>
         </label>

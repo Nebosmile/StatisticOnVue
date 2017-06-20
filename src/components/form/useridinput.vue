@@ -1,10 +1,10 @@
 <template lang="html">
     <label>User ID
      <div class="inpContainer">
-         <input name="userId" type="text" class="form-control" v-model='useroption.userid.id'>
+         <input name="userId" type="text" class="form-control" v-model='useroption.id'>
      </div>
      <div>
-         {{useroption.userid.id}}
+         {{useroption.id}}
      </div>
   </label>
 
