@@ -20,7 +20,7 @@ export default {
     name:'initstatistic',
     data(){
         return{
-            activetemplate:'global',
+            activetemplate:this.$route.params.location,
             templatetlinks:{
                 global:'Global',
                 session:'Session',
@@ -48,7 +48,9 @@ export default {
                 console.log('true');
             }
         },
-    }
+
+    },
+
 }
 </script>
 
@@ -111,6 +113,14 @@ ul li{
 .navigate > div {
     text-align: center;
 }
+.hidwrap {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.hideitem{
+    margin-bottom: 0;
+    transition: all 0.3s linear
+}
 .hideButton {
     width: 20px;
     height: 20px;
@@ -126,6 +136,15 @@ ul li{
     right: 0;
     border: 10px solid transparent;
     border-top: 10px solid #a1a1a1;
+}
+.hideButton.see:before {
+        top: 0;
+        right: 0;
+        border: 10px solid transparent;
+        border-right: 10px solid #a1a1a1;
+}
+.hideButton.see:hover:before {
+    border-right: 10px solid #fff;
 }
 .filterButton {
     cursor: pointer;

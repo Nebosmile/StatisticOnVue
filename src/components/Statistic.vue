@@ -34,37 +34,49 @@ export default {
         }
     },
     methods:{
-        setststiclink:function() {
-            statisticlink=this.location
-        },
-    },
-    mounted:function () {
+        setposition () {
 
-        var newlink = link+statlink+'/api.php?getCasinoCurrency&all'
-        var newthis = this;
-        $.ajax({
-            url: newlink,
-            dataType: 'JSON',
-            type: 'GET',
-            success: function(data){
-                console.log(data);
-                var necasinoobj={}
-
-                data.info.forEach(function(item) {
-                    necasinoobj[item.casinoName]={};
-                    item.currency.forEach(function (elem) {
-                        necasinoobj[item.casinoName][elem.name]=elem.name;
-                    })
-                })
-                for(var key in necasinoobj){
-
-                }
-                newthis.$root.casinolist=necasinoobj;
-
-                console.log(newthis.$root.casinolist);
+            if(this.$route.params.location !=undefined){
+                this.location =this.$route.params.location;
             }
-        })
-    }
+            // this.setcasinolist();
+        },
+        setcasinolist(){
+            var newlink = link+statlink+'/api.php?getCasinoCurrency&all'
+            var newthis = this;
+            $.ajax({
+                url: newlink,
+                dataType: 'JSON',
+                type: 'GET',
+                success: function(data){
+                    console.log(data);
+                    var necasinoobj={}
+
+                    data.info.forEach(function(item) {
+                        necasinoobj[item.casinoName]={};
+                        item.currency.forEach(function (elem) {
+                            necasinoobj[item.casinoName][elem.name]=elem.name;
+                        })
+                    })
+                    for(var key in necasinoobj){
+
+                    }
+                    newthis.$root.casinolist=necasinoobj;
+
+                    console.log(newthis.$root.casinolist);
+                }
+            })
+        }
+    },
+    watch: {
+        // в случае изменения маршрута запрашиваем данные вновь
+        '$route': 'setposition'
+      },
+    mounted:function () {
+        // this.setcasinolist()
+
+    },
+
 }
 
 </script>

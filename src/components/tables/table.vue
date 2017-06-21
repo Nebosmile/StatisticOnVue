@@ -1,7 +1,7 @@
 <template lang="html">
-    <div class='hidwrap tableFilter'>
+    <div class='hidwrap tableFilter' ref = 'hidwrap' >
         <div v-bind:class="{hide:hideis}" class='filterblock'>
-            <div class="filterblockin">
+            <div class="filterblockin" >
                 <form>
                     <ul>
                         <li v-for='items in options.initvalue'>
@@ -18,10 +18,10 @@
 
             </div>
         </div>
-        <div class="rowchik">
+        <div class="rowchik" >
 			<p class="left">{{options.tableoption.name}}</p>
 
-			<div class="hideButton right"></div>
+			<div class="hideButton right" v-on:click='check'></div>
 			<div v-on:click='seefilter' class="filterButton right"></div>
 			<a v-if='options.tableoption.exellink' id="consalExel" class="exel right"></a>
 			<p v-if='options.tableoption.navigationlist' class="right">
@@ -43,7 +43,7 @@
 
 
         <div class="hidewrapitem">
-            <table class="hideitem">
+            <table class="hideitem" >
                 <thead>
                     <tr>
                         <th v-if='Checkstatus(items)' v-for='items in options.initvalue'>{{items.name }}</th>
@@ -77,6 +77,29 @@ export default {
         }
     },
     methods:{
+        check(){
+            var elem =this.$refs.hidwrap
+            var hideButton = elem.getElementsByClassName('hideButton')[0];
+            var hideitem = elem.getElementsByClassName('hideitem')[0];
+            var height = hideitem.offsetHeight;
+            if (!hideButton.classList.contains('see')) {
+                hideitem.style.marginTop = -height + "px";
+                hideButton.classList.add("see");
+                setTimeout(function() {
+                    hideitem.classList.add('hide');
+                }, 500)
+            } else if (hideButton.classList.contains('see')) {
+                hideitem.classList.remove('hide');
+                setTimeout(function() {
+                    hideitem.style.marginTop = 0 + "px";
+                }, 20)
+                hideButton.classList.remove("see");
+
+
+
+            }
+            console.log(height);
+        },
         Checkstatus:function(obj) {
             if(obj.status=='checked'){return true}
             else {return false}
@@ -185,4 +208,5 @@ export default {
     width: 100%;
     text-align: center;
 }
+
 </style>

@@ -338,7 +338,8 @@ export default {
                     if(data.count){
                         console.log(data);
                         if(casinogame=='casino'){
-                            appthis.detailtablecasino.tableoption.navigationlist.allpage = data.count;
+
+                            appthis.detailtablecasino.tableoption.navigationlist.count= data.count;
                             appthis.detailtablecasino.ansver = data;
 
                             appthis.casinosummery.ansver=data.currency;
@@ -346,7 +347,7 @@ export default {
 
 
                         }else if (casinogame=='game') {
-                            appthis.detailtablegame.tableoption.navigationlist.allpage = data.count;
+                            appthis.detailtablecasino.tableoption.navigationlist.count= data.count;
                             appthis.detailtablegame.ansver = data;
 
                             appthis.gamesummery.ansver=data.currency;

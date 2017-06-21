@@ -84,7 +84,7 @@ export default {
     data(){
         return{
             time:{
-                id:'1',
+                id:'2',
                 timeperiod:'all',
                 timeof:{
                     status:'enabled',
