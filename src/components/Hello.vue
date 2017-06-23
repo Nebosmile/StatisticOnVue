@@ -1,43 +1,90 @@
 <template>
+<div class="hello">
+  <div class="main_form">
 
-  <div class="hello">
-    <img src="../assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
-    <h1>Statistic</h1>
-    <router-link to='/statistic'>Login</router-link>
+
+
+    <div class="indexDiv">
+      <div class="indexDiv2">
+        <img src="../assets/logo3.png" alt="">
+        <div id="login_form_wrap">
+          <h4>WELCOME TO THE CLIENT AREA</h4>
+          <form ref='login_form' id="login_form">
+            <label>Login
+              				<input name="login" type="text" placeholder="login">
+              			</label>
+            <label>Password
+              				<input name="password" type="password" placeholder="password">
+              			</label>
+            <input v-on:click='makelogin' id="gologin" type="button" name="button" value="login">
+          </form>
+        </div>
+      </div>
+      <router-link to='/statistic'>Login</router-link>
+    </div>
   </div>
+
+</div>
 </template>
 
 <script>
 export default {
   name: 'hello',
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App1'
+
+    }
+  },
+  methods: {
+    makelogin() {
+      var form = this.$refs.login_form;
+      var login = form.elements.login.value;
+      var password = form.elements.password.value;
+      var mainurl = 'http://devinterlayer.bossgs.org/manager'
+      var newthis = this;
+      $.ajax({
+        url: mainurl,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        xhrFields: {
+          withCredentials: true
+        },
+        type: 'POST',
+        data: {
+          'login': login,
+          'password': password
+        },
+        success: function(data) {
+          console.log(data);
+          if(data.login){
+              for(var key in data){
+                  if(userdata[key] != false){
+                      userdata[key]=data[key]
+                  }
+              }
+              newthis.$router.push('/statistic')
+              userdata.userstate=true;
+
+          }
+
+          console.log(userdata);
+
+
+
+        }
+      })
+
     }
   }
+
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

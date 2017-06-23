@@ -13,6 +13,18 @@ window.vm = new Vue({
   template: '<App/>',
   components: { App }
 })
+window.userdata = new Vue({
+    data:{
+        displayName:false,
+        email:false,
+        gender:false,
+        id:false,
+        login:false,
+        userRole:false,
+        userstate:false
+    }
+})
+window.admin_url =''
 window.gois=function () {
     return "gogogog"
 }
