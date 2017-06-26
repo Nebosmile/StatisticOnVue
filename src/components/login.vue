@@ -20,7 +20,7 @@
           </form>
         </div>
       </div>
-      <router-link to='/statistic'>Login</router-link>
+      <!-- <router-link to='/statistic'>Login</router-link> -->
     </div>
   </div>
 
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'login',
   data() {
     return {
 
@@ -58,13 +58,15 @@ export default {
         success: function(data) {
           console.log(data);
           if(data.login){
+              console.log(data.login);
               for(var key in data){
-                  if(userdata[key] != false){
+                  if(userdata[key] == false){
                       userdata[key]=data[key]
                   }
               }
               newthis.$router.push('/statistic')
               userdata.userstate=true;
+              console.log(userdata);
 
           }
 

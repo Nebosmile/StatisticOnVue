@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import login from '@/components/login'
 import statistic from '@/components/Statistic'
 import initstatistic from '@/components/initstatistic'
 import global from '@/components/statisticfolders/global'
@@ -11,7 +11,9 @@ import rounds from '@/components/statisticfolders/rounds'
 import roundturns from '@/components/statisticfolders/roundturns'
 import users from '@/components/statisticfolders/users'
 import exchangrates from '@/components/statisticfolders/exchangrates'
-
+import adminpanel from '@/components/adminpanel/adminpanel'
+import home from '@/components/adminpanel/home'
+import usermenagment from '@/components/adminpanel/usermenagment'
 
 Vue.use(Router)
 
@@ -25,8 +27,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'login',
+      component: login
     }, {
       path: '/statistic',
       name: 'statistic',
@@ -48,10 +50,22 @@ export default new Router({
           {
             path: 'online',
             component: online,
-          }
+        }
           ]
         }
       ]
-    }
+  },{
+      path:'/adminpanel',
+      component:adminpanel,
+      children:[
+          {
+              path:'home',
+              component:home,
+          },{
+              path:'usermenagment',
+              component:usermenagment,
+          }
+      ]
+  }
   ]
 })

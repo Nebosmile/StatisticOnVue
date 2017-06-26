@@ -24,10 +24,11 @@
   				</div>
   				<div class="admin_settings right">
   					<div class="adm_panel left">
-  						<div id="username" v-on:click='closeopen_panel'>kolokot</div>
-  						<ul ref='admin_menu' class="adm_ul hide">
+  						<div id="username" v-on:click='closeopen_panel'>{{username}}</div>
+  						<ul ref='admin_menu' class="adm_ul">
   							<li>Profile</li>
-  							<li id="panel">Panel</li>
+
+  							<li id="panel"><router-link to='/adminpanel/home'>Panel</router-link></li>
   							<li id="logout">Log Out</li>
   						</ul>
   					</div>
@@ -46,7 +47,8 @@ export default {
     name:'headcomponent',
     data(){
         return{
-            userstate:false
+            userstate:false,
+            username:''
         }
     },
     methods:{
@@ -56,7 +58,9 @@ export default {
         },
         checkuser(){
             this.userstate=userdata.userstate
+            this.username=userdata.displayName;
             console.log(userdata.userstate);
+            console.log(userdata.displayName);
             if(userdata.userstate==false){
                 console.log('user is not register// vue component.header');
             }
@@ -94,7 +98,6 @@ export default {
 .navbar {
     position: relative;
     min-height: 50px;
-    margin-bottom: 20px;
     border: 1px solid transparent;
 }
 .navbar-header {
@@ -154,13 +157,16 @@ export default {
 
 .admin_settings .adm_panel ul {
     position: absolute;
-    top: 52px;
+    top: 50px;
     right: 0;
-    display: inline-block;
+    display: none;
     background-color: #fff;
     padding: 0;
     margin: 0;
     text-align: left;
+}
+.admin_settings .adm_panel:hover ul{
+    display: inline-block;
 }
 .admin_settings .adm_panel ul li {
     list-style: none;

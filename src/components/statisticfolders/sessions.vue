@@ -22,7 +22,7 @@
                       </div>
 
                       <div class='inputblock'>
-                          <casinoinput v-bind:currencyoption ='casinoblock'  v-if='casinoblock'></casinoinput>
+                          <casinoinput v-bind:options ='casinoblock'  v-if='casinoblock'></casinoinput>
                           <basecurrency v-bind:options ='basecurrency' v-if='basecurrency' ></basecurrency>
                       </div>
 
@@ -284,9 +284,14 @@ export default {
 
             var appthis = this;
             $.ajax({
-                url:newlink,
+                url:statistic_url,
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
                 dataType:'JSON',
-                type:'GET',
+                type:'POST',
+                data:{'url':newlink},
                 success:function (data) {
                     console.log(data);
                     if(data.count){

@@ -110,7 +110,8 @@ export default {
             else {obj.status='checked'}
             console.log(obj);
         },
-        savefilters:function () {
+        savefilters:function (e) {
+            e.preventDefault();
             this.hideis=true
         },
         seefilter:function () {

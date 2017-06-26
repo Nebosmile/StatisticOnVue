@@ -2,7 +2,7 @@
 <div>
     <label>Casino
 		<div class="inpContainer">
-			<select v-on:change = 'getcurrency' name="casinoFilter" class="form-control" v-model='currencyoption.casinoid'>
+			<select v-on:change = 'getcurrency' name="casinoFilter" class="form-control" v-model='options.casinoid'>
                 <option value="all">All</option>
                 <option v-for='(item, index) in casinolist' v-bind:value="item.cid">{{item.casinoName}}</option>
             </select>
@@ -11,14 +11,14 @@
 
         <label>Casino ID
             <div class="inpContainer">
-                   <input v-on:click='generete' name="casinoId" type="text" :value='currencyoption.casinoid' class="form-control">
+                   <input v-on:click='generete' name="casinoId" type="text" :value='options.casinoid' class="form-control">
             </div>
         </label>
-        <label v-if='currencyoption.currency'>Currency
+        <label v-if='options.currency'>Currency
             <div class="inpContainer">
-               <select v-model='currencyoption.currency.activecurrency' name="currency" class="form-control">
+               <select v-model='options.currency.activecurrency' name="currency" class="form-control">
                    <option value="">All</option>
-                   <option v-for='key in currencyoption.currency.list' :value='key'>{{key}} </option>
+                   <option v-for='key in options.currency.list' :value='key'>{{key}} </option>
                </select>
             </div>
         </label>
@@ -30,7 +30,7 @@
 <script>
 export default {
     props:{
-        currencyoption: {
+        options: {
           type: Object
         }
     },
@@ -46,7 +46,7 @@ export default {
             vm.$emit('test');
         },
         getcurrency:function() {
-            var idcasino = this.currencyoption.casinoid;
+            var idcasino = this.options.casinoid;
             if(idcasino =='all' || !idcasino){
                 idcasino = 'all';
             }else if(idcasino){
@@ -82,7 +82,7 @@ export default {
                     for (var key in CurrObg) {
                         CurrArr.push(key)
                     }
-                    newthis.currencyoption.currency.list=CurrArr
+                    newthis.options.currency.list=CurrArr
                 }
             })
         }
@@ -102,7 +102,7 @@ export default {
         })
     },
     mounted:function () {
-        if(this.currencyoption.currency != undefined){
+        if(this.options.currency != undefined){
             this.getcurrency();
         }
 

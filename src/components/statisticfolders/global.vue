@@ -22,7 +22,7 @@
                   </div>
 
                   <div class='inputblock'>
-                      <casinoinput v-bind:currencyoption ='casinoblock'  v-if='casinoblock'></casinoinput>
+                      <casinoinput v-bind:options ='casinoblock'  v-if='casinoblock'></casinoinput>
                       <basecurrency v-bind:options ='basecurrency' v-if='basecurrency' ></basecurrency>
                   </div>
 
@@ -331,12 +331,18 @@ export default {
 
             var appthis = this;
             $.ajax({
-                url:newlink,
+                url:statistic_url,
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
                 dataType:'JSON',
-                type:'GET',
+                data:{'url':newlink},
+                type:'POST',
                 success:function (data) {
+                    console.log(data);
                     if(data.count){
-                        console.log(data);
+
                         if(casinogame=='casino'){
 
                             appthis.detailtablecasino.tableoption.navigationlist.count= data.count;
@@ -359,6 +365,9 @@ export default {
                         appthis.count='Записепй не найдено';
                     }
 
+                },
+                error:function (data) {
+                    console.log(data);
                 }
             })
 

@@ -10,10 +10,11 @@
                     <select v-model='location' id='indexselect' name="" class="form-control">
                         <option v-for='(items, key) in devCasinoProd' v-bind:value="key">{{items}}</option>
                     </select>
+                    <div id="goIndex" class="goindex activeindex">
+                        <h3><router-link v-bind:to='location' append>GAMES STATISTIC</router-link></h3>
+                    </div>
                 </div>
-                <div id="goIndex" class="goindex activeindex">
-    			    <h3><router-link v-bind:to='location' append>GAMES STATISTIC</router-link></h3>
-    			</div>
+
             </div>
         <router-view v-bind:previuslink ='location'></router-view>
     </div>
@@ -88,87 +89,34 @@ export default {
 </script>
 
 <style lang="scss">
+.goindex.activeindex:hover {
+    background-color: #d5af18;
+}
+.goindex.activeindex {
+    background-color: #ffcc00;
+    cursor: pointer;
+}
 
-    #goIndex{
-        cursor: pointer;
-        h3{
-            font-size: 20px;
-        }
+.goindex {
+    cursor: pointer;
+    position: relative;
+    color: #000;
+    background-color: #505050;
+    padding: 15px 5px;
+    margin-top: 24px;
+    max-width: 450px;
+    h3{
+        margin: 0;
+        padding: 0;
+        color: #000;
 
-    }
-    *{
-        box-sizing: border-box;
-    }
-    .inputblock {
-        display: inline-block;
-        margin-left: 10px;
-        width: 300px;
-        font-size: 12px;
-        text-align: right;
-        vertical-align: top;
-
-        .inpContainer {
-            margin-left: 5px;
-            float: right;
-            width: 200px;
-        }
-        .form-control {
-            height: 27px;
-        }
-        select {
-            border-radius: 0;
-            margin-bottom: 8px;
+        a{
+            font-size: 24px;
+            text-decoration: none;
+            color:inherit;
         }
     }
-    label {
-        font-size: 12px;
-        margin-bottom: 0;
-        display: inline-block;
-        max-width: 100%;
-        margin-bottom: 5px;
-        font-weight: 700;
-        text-align: right;
-        width: 100%;
-    }
-    .form-control {
-        display: block;
-        width: 100%;
-        padding: 6px 12px;
-        line-height: 1.42857143;
-        color: #555;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        /* box-shadow: inset 0 1px 1px rgba(0,0,0,.075); */
-        /* -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s; */
-        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    }
-    .dateform label {
-        width: 100%;
-    }
-    .dateform input:first-child, .lineblock:first-child {
-        margin-right: 2%;
-    }
-    .dateform input, .lineblock {
-        width: 49%;
-        float: left;
-    }
-    .inputblock input {
-        margin-bottom: 8px;
-        border-radius: 0;
-    }
-    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-        background-color: #eee;
-        opacity: 1;
-    }
-    .indexDiv{
+}
 
-        position: absolute;
-        top: 20%;
-        width: 100%;
-        text-align: center;
-    }
 
 </style>
