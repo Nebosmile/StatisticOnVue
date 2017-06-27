@@ -33,28 +33,27 @@ export default new Router({
       path: '/statistic',
       name: 'statistic',
       component: statistic,
-      children: [
+    },
         {
-          path: ':location',
+          path: '/statistic/:location',
           component: initstatistic,
           props:setstate,
           children: [
             {
-              path: 'global',
+              path: '/statistic/:location/global',
               component: global,
           },
           {
-            path: 'session',
+            path: '/statistic/:location/session',
             component: session,
         },
           {
-            path: 'online',
+            path: '/statistic/:location/online',
             component: online,
         }
           ]
-        }
-      ]
-  },{
+      },
+ {
       path:'/adminpanel',
       component:adminpanel,
       children:[
