@@ -23,7 +23,7 @@
 
 			<div class="hideButton right" v-on:click='check'></div>
 			<div v-on:click='seefilter' class="filterButton right"></div>
-			<a v-if='options.tableoption.exellink' id="consalExel" class="exel right"></a>
+			<a v-on:click='closeexcel' v-if='options.tableoption.exellink' id="consalExel" class="exel right"></a>
 			<p v-if='options.tableoption.navigationlist' class="right">
 				Records<span class="showNow"> {{options.tableoption.navigationlist.records}}</span> of <span class="showpage">{{options.tableoption.navigationlist.count}}</span>
 			</p>
@@ -59,6 +59,17 @@
             </table>
         </div>
 
+            <div class="hide" id="wait_exel" ref='wait_exel'>
+    			<p id="close_wait" v-on:click='closeexcel'>
+    				X
+    			</p>
+    			<p>
+    				It may take time to generate the file. The download will start automatically in a new window.
+    			</p>
+    			<div id="exelok" v-on:click='getexcel'>XLS</div>
+    			<div id="exel_csvok" v-on:click='getexcel("=csv")'>CSV</div>
+    	</div>
+
 
     </div>
 </template>
@@ -77,6 +88,34 @@ export default {
         }
     },
     methods:{
+        getexcel(value){
+            var excellink=this.options.tableoption.exellink.link+ "&excel"
+            if (value){
+                excellink=this.options.tableoption.exellink.link+ "&excel"+value
+            }
+            console.log(this.options.tableoption.exellink.link);
+            var newthis = this;
+            $.ajax({
+                url:statistic_url,
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
+                type:'POST',
+
+                data:{'url':excellink},
+                success:function (result) {
+
+
+                    window.open('data:application/octet-stream,' + encodeURIComponent(result));
+
+                }
+            })
+        },
+        closeexcel(){
+            var elem =this.$refs.wait_exel
+            elem.classList.toggle('hide');
+        },
         check(){
             var elem =this.$refs.hidwrap
             var hideButton = elem.getElementsByClassName('hideButton')[0];
@@ -166,7 +205,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
 /*.filterblock {
     position: fixed;
     z-index: 2000;
@@ -208,6 +247,42 @@ export default {
     clear: both;
     width: 100%;
     text-align: center;
+}
+
+#wait_exel {
+    text-align: center;
+    background-color: #fff;
+    width: 300px;
+    height: inherit;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    color: #000;
+    border: 1px solid #8c7575;
+    z-index: 3;
+
+    #close_wait {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 0;
+        line-height: 1;
+        padding: 5px;
+        cursor: pointer;
+    }
+    p {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+    & > div{
+    padding: 5px 20px;
+    background-color: #ffcc00;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 10px;
+    }
 }
 
 </style>

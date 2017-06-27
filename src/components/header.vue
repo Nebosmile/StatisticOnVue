@@ -2,7 +2,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   			<!-- Brand and toggle get grouped for better mobile display -->
   			<div class="navbar-header left">
-  				<a class="" href="index.html"><img src="../assets/logo3.png" alt="boss gaming studio logo"></a>
+  				<a class="" href="/"><img src="../assets/logo3.png" alt="boss gaming studio logo"></a>
   			</div>
   			<div v-if='userstate'  class="head_logIn">
   				<div class="game_stat left">

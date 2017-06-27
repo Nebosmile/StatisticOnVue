@@ -25,7 +25,7 @@ window.userdata = new Vue({
     }
 })
 window.admin_url ='http://devinterlayer.bossgs.org/manager/adminpanel/';
-window.statistic_url ='http://devinterlayer.bossgs.org/manager/adminpanel/proxy';
+window.statistic_url ='http://devinterlayer.bossgs.org/manager/adminpanel/proxy/request';
 window.gois=function () {
     return "gogogog"
 }
@@ -35,3 +35,8 @@ window.taketime = function(value1,value2) {
     if (isNaN(newtime)) newtime = 0;
     return newtime;
 }
+window.clearall=function (arr) {
+            arr.forEach(function (item) {
+                item.ansver=''
+            })
+        }

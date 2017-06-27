@@ -37,9 +37,14 @@ export default {
         // console.log(newlink);
         var newthis = this;
         $.ajax({
-            url: newlink,
-            dataType: 'JSON',
-            type: 'GET',
+            url:statistic_url,
+            headers:{"Content-Type": "application/x-www-form-urlencoded"},
+            xhrFields: {
+                  withCredentials: true
+              },
+            dataType:'JSON',
+            type:'POST',
+            data:{'url':newlink},
             success: function(data){
                 console.log(data);
                 newthis.gamelist=data.info;

@@ -1,11 +1,9 @@
 <template lang="html">
     <div>
         <ul class="menu">
-            <li v-for='(items, key) in templatetlinks'><router-link v-on:click.native='setactivetemplate(key)' v-bind:to='"/statistic/" +activetemplate+"/" + key' >{{items}}</router-link></li>
+            <li v-for='(items, key) in templatetlinks'><router-link v-on:click.native='setactivetemplate(key)' v-bind:to='"/statistic/" +previuslink+"/" + key' >{{items}}</router-link></li>
         </ul>
-        <div>
-            statistic intro
-        </div>
+
             <keep-alive>
                 <router-view ></router-view>
             </keep-alive>
@@ -41,7 +39,6 @@ export default {
             this.activetemplate=elem;
             var result =this.$route.fullPath;
             console.log(result);
-            console.log(this.previuslink+this.activetemplate);
             if(result.indexOf(this.previuslink) >=0){
                 console.log(result.indexOf(this.previuslink));
                 this.isappend= false;
@@ -53,11 +50,7 @@ export default {
         },
 
     },
-    mounted(){
-        console.log(this.previuslink);
-        var result =this.$route.fullPath;
-        console.log(this.$route.params.location);
-    }
+
 
 }
 </script>

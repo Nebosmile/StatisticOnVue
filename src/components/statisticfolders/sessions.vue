@@ -32,7 +32,7 @@
                           <showbyinput v-bind:options ='showby' v-if='showby'></showbyinput>
                       </div>
 
-                       <buttonblockinput v-on:get='getSession' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
+                       <buttonblockinput v-on:get='getSession' v-on:clear='cleartable' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
                   </form>
               </div>
           </div>
@@ -276,10 +276,17 @@ export default {
             var stopDate = taketime(this.time.timeto.data,this.time.timeto.time)
             var uId = this.userid.id;
             var sort = this.sort.active+this.sort.sorttype;
+            var sessionidvalue= this.sessionid.id
+
 
     // http://autorisation.bossgs.org/interstat/dev/api.php?getGameSession&start=1&step=50&startDate=0&stopDate=0&isActive=2&currency=&cId=&sCode=0&roundMin=0&roundMax=9999999&uId=&sort=startDate1&baseCurrency=0
+            if (sessionidvalue.length > 0 ) {
 
-            var newlink = link+statlink+'/api.php?getGameSession'+'&start='+start+'&step='+step+'&startDate='+startDate+'&stopDate='+stopDate+'&isActive='+isActive+'&currency='+currency+'&cId='+casinoId+'&roundMin='+RoundMin+'&roundMax='+roundMax+'&uId='+uId+'&sort='+sort+'&baseCurrency='+basecurrency;
+                newlink =link+statlink+'/api.php?'+ "getGameSessionInfo=" + sessionidvalue;
+            } else{
+                var newlink = link+statlink+'/api.php?getGameSession'+'&start='+start+'&step='+step+'&startDate='+startDate+'&stopDate='+stopDate+'&isActive='+isActive+'&currency='+currency+'&cId='+casinoId+'&roundMin='+RoundMin+'&roundMax='+roundMax+'&uId='+uId+'&sort='+sort+'&baseCurrency='+basecurrency;
+            }
+
             console.log(newlink);
 
             var appthis = this;
@@ -298,7 +305,9 @@ export default {
                         appthis.sessiondetailed.ansver = data;
                         appthis.sessionsummary.ansver=data.summary;
                         appthis.sessioncurrency.ansver=data.currency;
+                        appthis.sessiondetailed.tableoption.exellink.link= newlink;
                         appthis.setnavigation(appthis.sessiondetailed, data)
+
 
 
                     }else{
@@ -329,7 +338,13 @@ export default {
             var last = (elem.tableoption.navigationlist.currenpage)*this.showby.active;
             if (last>=obj.count){last = obj.count}
             elem.tableoption.navigationlist.records = Number(start + 1) + "-" + last;
-        }
+        },
+        cleartable:function () {
+
+            clearall([this.sessiondetailed,this.sessionsummary,this.sessioncurrency])
+
+
+        },
     }
 }
 </script>

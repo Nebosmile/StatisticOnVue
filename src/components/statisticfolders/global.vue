@@ -32,7 +32,7 @@
                       <showbyinput v-bind:options ='showby' v-if='showby'></showbyinput>
                   </div>
 
-                  <buttonblockinput v-on:get='getGlobal' v-on:clear='cleartable' v-on:reset='resetform([blockinput1,blockinput2,blockinput3,blockinput4])' v-bind:inputarguments= 'buttonblock'></buttonblockinput>
+                  <buttonblockinput v-on:get='getGlobal' v-on:clear='cleartable'  v-bind:inputarguments= 'buttonblock'></buttonblockinput>
               </form>
           </div>
       </div>
@@ -346,6 +346,7 @@ export default {
                         if(casinogame=='casino'){
 
                             appthis.detailtablecasino.tableoption.navigationlist.count= data.count;
+                            appthis.detailtablecasino.tableoption.exellink.link= newlink;
                             appthis.detailtablecasino.ansver = data;
 
                             appthis.casinosummery.ansver=data.currency;
@@ -353,7 +354,8 @@ export default {
 
 
                         }else if (casinogame=='game') {
-                            appthis.detailtablecasino.tableoption.navigationlist.count= data.count;
+                            appthis.detailtablegame.tableoption.navigationlist.count= data.count;
+                            appthis.detailtablegame.tableoption.exellink.link= newlink;
                             appthis.detailtablegame.ansver = data;
 
                             appthis.gamesummery.ansver=data.currency;
@@ -380,18 +382,13 @@ export default {
         },
         cleartable:function () {
             if(this.casinogame.state=='casino'){
-                this.clearall(['casinosummery','casinobasecurrency','detailtablecasino'])
+                clearall([this.casinosummery,this.casinobasecurrency,this.detailtablecasino])
             }else{
-                this.clearall(['gamesummery','gamebasecurrency','detailtablegame'])
+                clearall([this.gamesummery,this.gamebasecurrency,this.detailtablegame])
             }
 
         },
-        clearall:function (arr) {
-            var newthis = this;
-            arr.forEach(function (item) {
-                newthis[item].ansver=''
-            })
-        },
+
         resetform:function (arr) {
             var newthis = this;
             console.log('reset');

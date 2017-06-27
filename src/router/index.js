@@ -24,6 +24,9 @@ function setstate(route) {
 // console.log(statlink);
 
 export default new Router({
+    hashbang: false,
+     history: true,
+     mode: 'history',
   routes: [
     {
       path: '/',
@@ -50,7 +53,11 @@ export default new Router({
           {
             path: '/statistic/:location/online',
             component: online,
-        }
+        },
+        {
+          path: '/statistic/:location/rounds',
+          component: rounds,
+      }
           ]
       },
  {
