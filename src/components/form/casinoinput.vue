@@ -56,14 +56,13 @@ export default {
             console.log(newlink);
             var newthis = this;
             $.ajax({
-                url:statistic_url,
+                url:statistic_url  + encodeURIComponent(newlink),
                 headers:{"Content-Type": "application/x-www-form-urlencoded"},
                 xhrFields: {
                       withCredentials: true
                   },
                 dataType:'JSON',
-                type:'POST',
-                data:{'url':newlink},
+                type:'GET',
                 success: function(data){
 
                     var CasinoArr = data.info;
@@ -97,14 +96,13 @@ export default {
         // console.log(newlink);
         var newthis = this;
         $.ajax({
-            url:statistic_url,
+            url:statistic_url + encodeURIComponent(newlink),
             headers:{"Content-Type": "application/x-www-form-urlencoded"},
             xhrFields: {
                   withCredentials: true
               },
             dataType:'JSON',
-            type:'POST',
-            data:{'url':newlink},
+            type:'GET',
             success: function(data){
                 console.log(data);
                 newthis.casinolist=data.info;

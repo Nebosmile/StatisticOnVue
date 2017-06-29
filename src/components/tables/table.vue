@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                     <tr v-for='(item, index) in (options.ansver.info || options.ansver)'>
-                        <td v-if='Checkstatus(elem)' v-for='(elem,index2) in options.initvalue'>
+                        <td v-on:click='((elem.clickevent!=undefined)? checkevent(elem.clickevent): null)' v-if='Checkstatus(elem)' v-for='(elem,index2) in options.initvalue'>
                             {{setvalue(item[elem.value], elem.value, index + 1)}}
                         </td>
                     </tr>
@@ -88,29 +88,35 @@ export default {
         }
     },
     methods:{
-        getexcel(value){
+        checkevent(obj){
+            console.log(obj);
+        },
+        getexcel(valuelink){
             var excellink=this.options.tableoption.exellink.link+ "&excel"
-            if (value){
-                excellink=this.options.tableoption.exellink.link+ "&excel"+value
+            if (valuelink){
+                excellink=this.options.tableoption.exellink.link+ "&excel"+valuelink
+                console.log(valuelink);
             }
+            excellink=encodeURIComponent(excellink)
             console.log(this.options.tableoption.exellink.link);
             var newthis = this;
-            $.ajax({
-                url:statistic_url,
-                headers:{"Content-Type": "application/x-www-form-urlencoded"},
-                xhrFields: {
-                      withCredentials: true
-                  },
-                type:'POST',
-
-                data:{'url':excellink},
-                success:function (result) {
-
-
-                    window.open('data:application/octet-stream,' + encodeURIComponent(result));
-
-                }
-            })
+            window.open(statistic_url+"?url="+excellink)
+        //     $.ajax({
+        //         url:statistic_url+"?url="+excellink,
+        //         xhrFields: {
+        //               withCredentials: true
+        //           },
+        //         type:'GET',
+        //         success:function (result) {
+        //
+        //
+        //             // var uri = 'data:application/vnd.ms-excel,'  + decodeURIComponent(result)
+        //             // window.open(uri);
+        //             // window.open('data:application/octet-stream,' + encodeURIComponent(result));
+        //
+        //
+        //         }
+        //     })
         },
         closeexcel(){
             var elem =this.$refs.wait_exel

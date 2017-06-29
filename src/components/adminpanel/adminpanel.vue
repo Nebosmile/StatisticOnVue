@@ -28,16 +28,25 @@ export default {
 <style lang="scss">
 #adminpanel {
     box-sizing: border-box;
-    min-height: 100vh;
+    min-height:calc(100vh - 52px) ;
     background-color: #fff;
     position: relative;
     z-index: 3;
     color: #000;
-    height: 1px;
+    height: initial;
+    overflow-y: auto;
+
 
     & > div {
         padding-top: 30px;
-        height: 100%;
+        height: initial;
+        min-height:calc(100vh - 82px);
+        background-color: #fff;
+
+
+        table{
+            min-width: 730px;
+        }
     }
 }
 .panellist{
@@ -57,10 +66,17 @@ export default {
     }
 
 }
+.admin_menu{
+    position: fixed;
+}
 .admin_forms {
-    width: 74%;
+    // width: 74%;
     border-left: 1px solid #000;
     padding-left: 4%;
+    overflow-x: auto;
+    position: absolute;
+    left:250px;
+    min-width: calc(100vw - 300px)
 }
 
 .admin_menu {

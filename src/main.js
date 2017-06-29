@@ -25,7 +25,7 @@ window.userdata = new Vue({
     }
 })
 window.admin_url ='http://devinterlayer.bossgs.org/manager/adminpanel/';
-window.statistic_url ='http://devinterlayer.bossgs.org/manager/adminpanel/proxy/request';
+window.statistic_url ='http://devinterlayer.bossgs.org/manager/adminpanel/proxy/request?url=';
 window.gois=function () {
     return "gogogog"
 }

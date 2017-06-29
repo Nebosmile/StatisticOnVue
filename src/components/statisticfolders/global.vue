@@ -331,14 +331,14 @@ export default {
 
             var appthis = this;
             $.ajax({
-                url:statistic_url,
+                url:statistic_url + encodeURIComponent(newlink),
                 headers:{"Content-Type": "application/x-www-form-urlencoded"},
                 xhrFields: {
                       withCredentials: true
                   },
                 dataType:'JSON',
-                data:{'url':newlink},
-                type:'POST',
+                // data:{'url':newlink},
+                type:'GET',
                 success:function (data) {
                     console.log(data);
                     if(data.count){

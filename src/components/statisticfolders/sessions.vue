@@ -291,13 +291,13 @@ export default {
 
             var appthis = this;
             $.ajax({
-                url:statistic_url,
+                url:statistic_url + encodeURIComponent(newlink),
                 headers:{"Content-Type": "application/x-www-form-urlencoded"},
                 xhrFields: {
                       withCredentials: true
                   },
                 dataType:'JSON',
-                type:'POST',
+                type:'GET',
                 data:{'url':newlink},
                 success:function (data) {
                     console.log(data);
