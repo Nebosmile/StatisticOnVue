@@ -6,13 +6,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-window.vm = new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
-})
+
+
 window.userdata = new Vue({
     data:{
         displayName:false,
@@ -23,6 +18,9 @@ window.userdata = new Vue({
         userRole:false,
         userstate:false
     }
+})
+window.userevent=new Vue({
+
 })
 window.admin_url ='http://devinterlayer.bossgs.org/manager/adminpanel/';
 window.statistic_url ='http://devinterlayer.bossgs.org/manager/adminpanel/proxy/request?url=';
@@ -40,3 +38,10 @@ window.clearall=function (arr) {
                 item.ansver=''
             })
         }
+/* eslint-disable no-new */
+window.vm = new Vue({
+  el: '#app',
+  router,
+  template: '<App/>',
+  components: { App }
+})

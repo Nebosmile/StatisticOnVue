@@ -1,5 +1,5 @@
 <template lang="html">
-    <div id="adminpanel">
+    <div id="adminpanel" >
         <div class="panellist_wrap left admin_menu">
             <ul class="panellist">
                 <li><router-link to='usermenagment'>User managment</router-link></li>
@@ -8,8 +8,14 @@
                 <li><router-link to='provaiders'>Provaiders</router-link></li>
             </ul>
         </div>
-        <div class="panellist_wrap left admin_forms">
-            <router-view></router-view>
+
+        <div class ='adminpanel'>
+
+            <div class="panellist_wrap left admin_forms">
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </div>
         </div>
     </div>
 
@@ -30,17 +36,22 @@ export default {
     box-sizing: border-box;
     min-height:calc(100vh - 52px) ;
     background-color: #fff;
-    position: relative;
+
     z-index: 3;
     color: #000;
     height: initial;
     overflow-y: auto;
 
+    .adminpanel{
+        position: relative;
+        min-height: 100vh;
+    }
+
 
     & > div {
         padding-top: 30px;
         height: initial;
-        min-height:calc(100vh - 82px);
+        min-height:calc(100vh - 50px);
         background-color: #fff;
 
 
@@ -50,6 +61,8 @@ export default {
     }
 }
 .panellist{
+    padding-left: 20px;
+
     li{
         text-align: left;
         &:hover{
@@ -57,9 +70,10 @@ export default {
         }
 
 
-        a{  font-size: 16px;
+        a{ display: inline-block;
+             font-size: 16px;
             display: inline-block;
-            padding: 3px;
+            padding: 5px;
             text-decoration: none;
 
         }
@@ -67,22 +81,24 @@ export default {
 
 }
 .admin_menu{
-    position: fixed;
+
+        position: fixed;
+        top:50px;
+        border-right: 1px solid #000;
+        padding-right:  20px;
+        min-width: 200px;
+        z-index: 3
+
 }
 .admin_forms {
     // width: 74%;
-    border-left: 1px solid #000;
-    padding-left: 4%;
+    margin-top:50px;
     overflow-x: auto;
-    position: absolute;
-    left:250px;
+    margin-left:250px;
     min-width: calc(100vw - 300px)
 }
 
-.admin_menu {
-    width: 20%;
-    min-width: 200px;
-}
+
 .admin_buttons{
         text-align: left;
         form{
@@ -103,4 +119,5 @@ export default {
     line-height: 1.3333333;
     cursor: pointer;
 }
+
 </style>

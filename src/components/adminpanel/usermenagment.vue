@@ -3,12 +3,12 @@
         <div class='rowchik'>
             <p class="text_left">User managment</p>
         </div>
-        <div class='usertabledorm' v-if='(activeform=="usertable")'>
+        <div class='usertabledorm' v-bind:class='{hide:(activeform!="usertable")}'>
             <div class="admin_buttons">
 
                 <form ref='searchform' class="text_left">
                     <div>
-                        <input id="panel_new_user" v-on:click="(activeform='useraddform')" type="button" class="btn btn-lg btn-primary" value="Add">
+                        <input id="panel_new_user" v-on:click="(activeform='manager_addform')" type="button" class="btn btn-lg btn-primary" value="Add">
                         <input id="panel_us_searh" type="button" name="panel_us_searh" class="btn btn-lg btn-success" value="Search"
                             v-on:click='searchuser'
                         >
@@ -35,11 +35,14 @@
                     </div>
                 </form>
             </div>
-            <tableStat v-if='(usertable.ansver && activeusertype == "user")' v-bind:options ='usertable'></tableStat>
-            <tableStat v-on:editmanager='geteditmanager' v-if='(menagertable.ansver && activeusertype == "manager")' v-bind:options ='menagertable'></tableStat>
+
+                <tableStat v-if='(usertable.ansver && activeusertype == "user")' v-bind:options ='usertable'></tableStat>
+                <tableStat v-if='(menagertable.ansver && activeusertype == "manager")' v-bind:options ='menagertable'></tableStat>
+
+
         </div>
 
-        <div class='useraddform' v-if='(activeform=="useraddform")'>
+        <div class='manager_addform' v-bind:class='{hide:(activeform!="manager_addform" && activeform!="manager_editform")}'>
             <form id="editform" name="editform" ref='editform' >
                 <div class="inputblock">
                     <label>Login
@@ -76,12 +79,14 @@
                         <div class="inpContainer">
                             <select name="userRole" class="form-control">
                                 <option value="manager">manager</option>
+                                <option value="admin">admin</option>
                             </select>
                         </div>
                     </label>
                     <div class="buttonBlock">
-                        <input v-on:click='registration' id="registration" type="button" name="Sumbit" class="btn btn-lg btn-success" value="Sumbit">
-                        <input id="" type="reset" class="btn btn-lg btn-primary" value="Reset">
+                        <input v-on:click='activeform="usertable"' id="" type="button" class="btn btn-lg btn-primary" value="Back">
+                        <input v-on:click='registration_or_edit' id="registration" type="button" name="Sumbit" class="btn btn-lg btn-success" value="Sumbit">
+                        <input id="" type="reset" class="btn btn-lg  btn-danger" value="Reset">
                     </div>
                 </div>
             </form>
@@ -108,6 +113,7 @@ export default {
             searchform:{
                 casinoid:'',
             },
+            edit_user_id:'',
             activeusertype:'user',
 
             activeform:'usertable',
@@ -170,10 +176,56 @@ export default {
         }
     },
     methods:{
-        geteditmanager(obj){
-            console.log(obj);
+        setformvalue(obj){
+            console.log(obj.email);
+            var newthis = this;
+            var editform = this.$refs.editform
+            var login =editform.elements.login;
+            var password =editform.elements.password;
+            var email =editform.elements.email;
+            var displayName =editform.elements.displayName;
+            var gender =editform.elements.gender;
+            var userRole =editform.elements.userRole;
+
+            login.value=obj.login;
+            password.value ='';
+            email.value =obj.email;
+            displayName.value =obj.displayName;
+            gender.value =obj.gender;
+            userRole.value =obj.userRole;
         },
-        registration(e){
+        geteditmanager(newid){
+            var newthis =this;
+            var searchform = this.$refs.searchform;
+            var postdata= {};
+            var panel_us_ad = searchform.elements.panel_us_ad.value;
+            postdata._id=newid;
+            var fulllink;
+            if(panel_us_ad=='user'){
+                fulllink=admin_url+'user';
+            }
+            else if(panel_us_ad=='manager'){
+                fulllink=admin_url+'manager';
+            }
+            $.ajax({
+                url: fulllink,
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
+                dataType: 'JSON',
+                data:postdata,
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
+                    newthis.activeform="manager_editform";
+                    newthis.edit_user_id=newid;
+                    newthis.setformvalue(data.result[0])
+                },
+
+            })
+        },
+        registration_or_edit(e){
             e.preventDefault();
             var newthis = this;
             var editform = this.$refs.editform
@@ -183,11 +235,18 @@ export default {
             var displayName =editform.elements.displayName.value;
             var gender =editform.elements.gender.value;
             var userRole =editform.elements.userRole .value;
+            var edit_or_addURL;
+            if(this.activeform=='manager_editform'){
+                var id =this.edit_user_id;
+                edit_or_addURL='manager/set/'+id;
+            }else if(this.activeform=='manager_addform'){
+                edit_or_addURL='manager/add'
+            }
 
             // console.log({'login':login,'password':password,'email':email, 'gender':gender,'userRole':userRole,'displayName':displayName});
 
             $.ajax({
-                url: admin_url +'manager/add',
+                url: admin_url +edit_or_addURL,
                 headers:{"Content-Type": "application/x-www-form-urlencoded"},
                 xhrFields: {
                       withCredentials: true
@@ -198,8 +257,11 @@ export default {
                 success:function (data) {
                     console.log(data);
                     if(data.result !=undefined){
-                        if(data.result.displayName !=undefined){
+                        if(data.result.displayName !=undefined && newthis.activeform=='manager_addform'){
                             alert("user " + data.result.displayName + " is registered")
+                            newthis.activeform='usertable';
+                        }else if(data.result.displayName !=undefined && newthis.activeform=='manager_editform'){
+                            alert('Data updated');
                             newthis.activeform='usertable';
                         }
 
@@ -257,6 +319,13 @@ export default {
 
             })
         }
+
+    },
+    mounted(){
+        userevent.$on('editmanager', (elem)=> {
+            console.log(elem);
+            this.geteditmanager(elem.element)
+        })
     }
 }
 </script>

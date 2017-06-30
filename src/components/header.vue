@@ -7,8 +7,8 @@
   			<div v-if='userstate'  class="head_logIn">
   				<div class="game_stat left">
   					<img class="left" src="../assets/gumbdark.png" alt="">
-  					<div class="geme_stat_menu left">GAMES STATISTIC</div>
-  					<div id="location_stat" class="left">SLOTOBOSS</div>
+  					<div class="geme_stat_menu left"><router-link to='/statistic'>GAMES STATISTIC</router-link></div>
+  					<div id="location_stat" class="left"></div>
 
   					<!-- <div class="head_time">
   						<p id="server_time">
@@ -26,10 +26,10 @@
   					<div class="adm_panel left">
   						<div id="username" v-on:click='closeopen_panel'>{{username}}</div>
   						<ul ref='admin_menu' class="adm_ul">
-  							<li>Profile</li>
+  							<li><a>Profile</a></li>
 
   							<li id="panel"><router-link to='/adminpanel/home'>Panel</router-link></li>
-  							<li id="logout">Log Out</li>
+  							<li id="logout"><a>Log Out</a></li>
   						</ul>
   					</div>
   					<div class="settings_panel left"><img src="../assets/shesterenka.png" alt="">
@@ -96,7 +96,6 @@ export default {
     z-index: 1030;
 }
 .navbar {
-    position: relative;
     min-height: 50px;
     border: 1px solid transparent;
 }
@@ -168,12 +167,17 @@ export default {
 .admin_settings .adm_panel:hover ul{
     display: inline-block;
 }
-.admin_settings .adm_panel ul li {
+ .admin_settings .adm_panel ul li{
     list-style: none;
     color: #000;
     min-width: 100px;
-    padding: 5px 5px 5px 10px;
     cursor: pointer;
+    min-width: 100px;
+}
+.admin_settings .adm_panel ul li a{
+    display: inline-block;
+    padding: 5px 5px 5px 10px;
+    min-width: 100px;
 }
 .admin_settings .adm_panel ul li:hover{
     background-color: rgb(144, 144, 139);

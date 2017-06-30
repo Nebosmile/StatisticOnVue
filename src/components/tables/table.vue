@@ -51,7 +51,11 @@
                 </thead>
                 <tbody>
                     <tr v-for='(item, index) in (options.ansver.info || options.ansver)'>
-                        <td v-on:click='((elem.clickevent!=undefined)? checkevent(elem.clickevent): null)' v-if='Checkstatus(elem)' v-for='(elem,index2) in options.initvalue'>
+                        <td
+                        v-on:click='((elem.clickevent!=undefined)? checkevent(elem.clickevent, item[elem.value]): null)'
+                        v-if='Checkstatus(elem)'
+                        v-for='(elem,index2) in options.initvalue'
+                        v-bind:class="{clicker:(elem.clickevent!=undefined)}">
                             {{setvalue(item[elem.value], elem.value, index + 1)}}
                         </td>
                     </tr>
@@ -88,8 +92,10 @@ export default {
         }
     },
     methods:{
-        checkevent(obj){
-            console.log(obj);
+        checkevent(checkev, obj){
+            var data = {parametrs :checkev.param,
+                        element:obj}
+                userevent.$emit(checkev.callevent, data)
         },
         getexcel(valuelink){
             var excellink=this.options.tableoption.exellink.link+ "&excel"
@@ -290,5 +296,14 @@ export default {
     margin: 0 10px;
     }
 }
+.clicker {
+    cursor: pointer;
+    color: blue;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 
 </style>

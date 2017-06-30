@@ -14,6 +14,7 @@ import exchangrates from '@/components/statisticfolders/exchangrates'
 import adminpanel from '@/components/adminpanel/adminpanel'
 import home from '@/components/adminpanel/home'
 import usermenagment from '@/components/adminpanel/usermenagment'
+import casinomenagment from '@/components/adminpanel/casinomenagment'
 
 Vue.use(Router)
 
@@ -70,6 +71,10 @@ export default new Router({
           },{
               path:'usermenagment',
               component:usermenagment,
+          },
+          {
+              path:'casinomenagment',
+              component:casinomenagment,
           }
       ]
   }

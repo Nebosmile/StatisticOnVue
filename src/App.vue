@@ -7,6 +7,9 @@
 </template>
 
 <script>
+
+
+
 import headcomponent from '@/components/header';
 export default {
   name: 'app',
@@ -63,6 +66,9 @@ a{
    position: absolute;
   min-width: 100%;
   min-height: 100%;
+}
+.menu{
+    margin-top: 60px;
 }
 li{
     list-style: none;
@@ -261,6 +267,16 @@ input{
     color: #fff;
     background-color: #286090;
     border-color: #204d74;
+}
+.btn-danger{
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+.btn-danger:hover {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
 }
 .btn-success, .btn-lbtn-success {
     color: #fff;
