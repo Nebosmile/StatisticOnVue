@@ -8,7 +8,7 @@
 
                 <form ref='searchform' class="text_left">
                     <div>
-                        <input id="panel_new_user" v-on:click="(activeform='manager_addform')" type="button" class="btn btn-lg btn-primary" value="Add">
+                        <input id="panel_new_user" v-on:click="add_position" type="button" class="btn btn-lg btn-primary" value="Add">
                         <input id="panel_us_searh" type="button" name="panel_us_searh" class="btn btn-lg btn-success" value="Search"
                             v-on:click='searchuser'
                         >
@@ -43,7 +43,12 @@
         </div>
 
         <div class='manager_addform' v-bind:class='{hide:(activeform!="manager_addform" && activeform!="manager_editform")}'>
-            <form id="editform" name="editform" ref='editform' >
+            <form class="editform" name="editform" ref='editform' >
+                <input  v-on:click='activeform="usertable"' id="" type="button" class="btn btn-lg btn-primary back_button left" value="Back">
+                <!-- <input
+                v-if=' (activeform == "manager_editform")'
+                v-on:click ='remove_position'
+                 id="" type="button" class="btn btn-lg  btn-danger right" value="Block/Unblock"> -->
                 <div class="inputblock">
                     <label>Login
                         <div class="inpContainer">
@@ -52,7 +57,7 @@
                     </label>
                     <label>password
                         <div class="inpContainer">
-                            <input name="password" type="password" class="form-control">
+                            <input name="password" autocomplete="off" type="password" class="form-control">
                         </div>
                     </label>
                     <label>Email
@@ -78,15 +83,23 @@
                     <label>Role
                         <div class="inpContainer">
                             <select name="userRole" class="form-control">
-                                <option value="manager">manager</option>
-                                <option value="admin">admin</option>
+
+                                <option value="59565d99643a9d0937841236">admin</option>
+                            </select>
+                        </div>
+                    </label>
+                    <label>Status
+                        <div class="inpContainer">
+                            <select name="deleted" class="form-control">
+                                <option value="false">unblock</option>
+                                <option value="true">block</option>
                             </select>
                         </div>
                     </label>
                     <div class="buttonBlock">
-                        <input v-on:click='activeform="usertable"' id="" type="button" class="btn btn-lg btn-primary" value="Back">
+
                         <input v-on:click='registration_or_edit' id="registration" type="button" name="Sumbit" class="btn btn-lg btn-success" value="Sumbit">
-                        <input id="" type="reset" class="btn btn-lg  btn-danger" value="Reset">
+                        <input id="" type="reset" name='reset' class="btn btn-lg  btn-danger" value="Reset">
                     </div>
                 </div>
             </form>
@@ -101,6 +114,7 @@
 <script>
 import singlecasinolist from '@/components/form/singlecasinolist'
 import tableStat from '@/components/tables/table'
+var tamplate_link = 'manager';
 
 export default {
     name:'usermenagment',
@@ -113,7 +127,7 @@ export default {
             searchform:{
                 casinoid:'',
             },
-            edit_user_id:'',
+            edit_id:'',
             activeusertype:'user',
 
             activeform:'usertable',
@@ -171,11 +185,17 @@ export default {
                     {value:'createdAt',name:' Creation date',status:'checked',default:'1'},
                     {value:'updatedAt',name:'Last action',status:'checked',default:'1'},
                     {value:'email',name:'Email',status:'checked',default:'1'},
+                    {value:'deleted',name:'Blocked',status:'checked',default:'1'},
                 ]
             },
         }
     },
     methods:{
+        add_position(){
+            var editform = this.$refs.editform;
+            editform.elements.reset.click();
+            this.activeform='manager_addform';
+        },
         setformvalue(obj){
             console.log(obj.email);
             var newthis = this;
@@ -219,7 +239,7 @@ export default {
                 success: function(data){
                     console.log(data);
                     newthis.activeform="manager_editform";
-                    newthis.edit_user_id=newid;
+                    newthis.edit_id=newid;
                     newthis.setformvalue(data.result[0])
                 },
 
@@ -234,13 +254,17 @@ export default {
             var email =editform.elements.email.value;
             var displayName =editform.elements.displayName.value;
             var gender =editform.elements.gender.value;
-            var userRole =editform.elements.userRole .value;
+            var userRole =[];
+            userRole.push(editform.elements.userRole.value);
+            userRole.push('dfhgfjhj');
+            console.log(userRole);
+            var deleted =editform.elements.deleted.value;
             var edit_or_addURL;
             if(this.activeform=='manager_editform'){
-                var id =this.edit_user_id;
-                edit_or_addURL='manager/set/'+id;
+                var id =this.edit_id;
+                edit_or_addURL=tamplate_link+'/set/'+id;
             }else if(this.activeform=='manager_addform'){
-                edit_or_addURL='manager/add'
+                edit_or_addURL=tamplate_link+'/add'
             }
 
             // console.log({'login':login,'password':password,'email':email, 'gender':gender,'userRole':userRole,'displayName':displayName});
@@ -252,7 +276,7 @@ export default {
                       withCredentials: true
                   },
                 type: 'POST',
-                data: {'login':login,'password':password,'email':email, 'gender':gender,'userRole':userRole,'displayName':displayName},
+                data: {'login':login,'password':password,'email':email, 'gender':gender,'userRole':userRole,'displayName':displayName,'deleted':deleted},
 
                 success:function (data) {
                     console.log(data);
@@ -309,6 +333,34 @@ export default {
                 type: 'POST',
                 success: function(data){
                     console.log(data);
+                    if(data.result =="not found"){
+                        alert("not found");
+                        return
+                    }
+
+
+                    if(data.result && newthis.activeusertype=='user'){
+                        newthis.usertable.ansver = data.result
+                    }else if(data.result && newthis.activeusertype=='manager'){
+                        newthis.menagertable.ansver = data.result
+                    }
+                },
+
+            })
+        },
+        remove_position(){
+            var id =this.edit_id;
+            var fulllink = admin_url+tamplate_link +'/remove/'+id
+            $.ajax({
+                url: fulllink,
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
+                dataType: 'JSON',
+                type: 'POST',
+                success: function(data){
+                    console.log(data);
 
                     if(data.result && newthis.activeusertype=='user'){
                         newthis.usertable.ansver = data.result
@@ -319,6 +371,7 @@ export default {
 
             })
         }
+
 
     },
     mounted(){

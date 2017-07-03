@@ -20,7 +20,8 @@
               <label>From
                   <div class="inpContainer">
                       <input v-on:click='settime("dateof")' type="text"  name="dateof" v-bind:id="'dateof'+timeoption.id"  class="form-control" v-model="timeoption.timeof.data" v-on:blur='iscatchtime("dateof",timeoption.id)'>
-                      <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.id" class="form-control ui-timepicker-input" v-model="timeoption.timeof.time" autocomplete="off">
+                      <input type="text" name="timeof" v-bind:id="'timeof'+timeoption.id"
+                      v-on:blur='iscatchtime("timeof",timeoption.id)' class="form-control ui-timepicker-input" v-model="timeoption.timeof.time" autocomplete="off">
                   </div>
                   <div>{{timeoption.timeof.data}} </div>
               </label>
@@ -29,7 +30,9 @@
               <label>To
                   <div class="inpContainer">
                       <input v-on:click='settime("dateto")' type="text" name="dateto" v-bind:id="'dateto'+timeoption.id" class="form-control" v-model="timeoption.timeto.data" v-on:blur='iscatchtime("dateto",timeoption.id)'>
-                      <input type="text" name="timeto" v-bind:id="'timeto'+timeoption.id" class="form-control ui-timepicker-input" v-model="timeoption.timeto.time" autocomplete="off">
+                      <input type="text" name="timeto" v-bind:id="'timeto'+timeoption.id"
+                      v-on:blur='iscatchtime("timeto",timeoption.id)'
+                       class="form-control ui-timepicker-input" v-model="timeoption.timeto.time" autocomplete="off">
                   </div>
                   <div>{{timeoption.timeto.data}} </div>
               </label>
@@ -38,6 +41,8 @@
 </template>
 
 <script>
+import '@/assets/js/jquery.timepicker.js';
+import '@/assets/css/jquery.timepicker.css';
 
 export default {
     props: {
@@ -66,6 +71,15 @@ export default {
       $("#dateto" + this.timeoption.id).datepicker("option", "dateFormat", "yy-mm-dd");
       $("#dateto" + this.timeoption.id).datepicker("setDate", newthis.timeoption.timeto.data);
     //   inputInit(this.timeoption.id);
+
+    $("#timeof" + this.timeoption.id).timepicker({
+        'timeFormat': 'H:i:s',
+        'step': 60
+    });
+    $("#timeto" + this.timeoption.id).timepicker({
+        'timeFormat': 'H:i:s',
+        'step': 60
+    });
   },methods:{
       ischange:function (e) {
      },

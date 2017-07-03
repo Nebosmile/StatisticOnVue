@@ -187,7 +187,9 @@ export default {
 
             }
             else {
-                return String(obj)
+                if(obj==undefined){return ""}
+                else{ return String(obj)}
+
             }
         },
         firstlist(){

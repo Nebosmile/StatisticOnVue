@@ -11,6 +11,8 @@
 
 
 import headcomponent from '@/components/header';
+// import '@/assets/js/check.js';
+// import '@/assets/js/jquery.timepicker.js';
 export default {
   name: 'app',
   components:{
@@ -256,7 +258,6 @@ input{
     user-select: none;
     background-image: none;
     border: 1px solid transparent;
-    border-radius: 4px;
 }
 .btn-primary {
     color: #fff;

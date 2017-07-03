@@ -16,6 +16,8 @@ import home from '@/components/adminpanel/home'
 import usermenagment from '@/components/adminpanel/usermenagment'
 import casinomenagment from '@/components/adminpanel/casinomenagment'
 
+
+
 Vue.use(Router)
 
 function setstate(route) {

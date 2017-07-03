@@ -60,6 +60,9 @@ export default {
         }
     }
 }
+.editform{
+    padding: 10px;
+}
 .panellist{
     padding-left: 20px;
 
