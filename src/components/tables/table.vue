@@ -83,7 +83,16 @@ export default {
     name:'tableStat',
     data(){
         return{
-            hideis:true
+            hideis:true,
+            optionsdate:{
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                timezone: 'UTC',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+            }
         }
     },
     props:{
@@ -185,6 +194,12 @@ export default {
                     return index;
                 }
 
+            }else if (name == 'endDate' || name == 'startDate'  ) {
+                if(obj != '' && obj != undefined && obj !=0){
+                    var datestart = new Date(Number(obj))
+                    var dateTd = datestart.toLocaleString("ru", this.optionsdate);
+                    return dateTd
+                }
             }
             else {
                 if(obj==undefined){return ""}

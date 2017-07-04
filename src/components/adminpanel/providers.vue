@@ -1,7 +1,7 @@
 <template lang="html">
     <div>
         <div class='rowchik'>
-            <p class="text_left">Game managment</p>
+            <p class="text_left">Provaiders managment</p>
         </div>
         <div class='admintableform'  v-bind:class='{hide:(activeform!="gametable" )}'>
             <div class="admin_buttons">
@@ -37,23 +37,22 @@
                 <div class="inputblock">
                     <label>Name
                         <div class="inpContainer">
-                            <input name="gamename" type="text" class="form-control">
+                            <input name="name" type="text" class="form-control">
                         </div>
                     </label>
-                    <label>Title
+                    <label>Origin
                         <div class="inpContainer">
-                            <input name="title" type="text" class="form-control">
+                            <input name="origin" type="text" class="form-control">
                         </div>
                     </label>
-                    <label>Promo link
+                    <label>Launch Url
                         <div class="inpContainer">
-                            <input name="promolink" type="text" class="form-control">
+                            <input name="gamelaunchurl" type="text" class="form-control">
                         </div>
                     </label>
-                    <label>Provider
+                    <label>promoUrl
                         <div class="inpContainer">
-                            <!--захардкоджено  -->
-                            <input name="provider" value='592fcf7fbfa3032bc8eb7ed0' disabled type="text" class="form-control">
+                            <input name="promourl" type="text" class="form-control">
                         </div>
                     </label>
 
@@ -73,10 +72,10 @@
 <script>
 import tableStat from '@/components/tables/table'
 
-var tamplate_link = 'game'
+var tamplate_link = 'provider'
 
 export default {
-    name:'gamemenagment',
+    name:'providers',
     components:{
         tableStat,
     },
@@ -106,14 +105,15 @@ export default {
                 count:'',
                 initvalue:[
                     {value: 'number', name:'Number',status:'checked',default:'1'},
-                    {value: 'title', name:'Name',status:'checked',default:'1'},
+                    {value: 'name', name:'Name',status:'checked',default:'1'},
                     {value:'_id',name:'Global id',status:'checked',default:'1',clickevent:{
-                            callevent:'editgame',
+                            callevent:'editprovider',
                             param:'_id'
                         }
                     },
-                    {value: 'promoLink', name:'promoLink',status:'checked',default:'1'},
-                    {value:'provider',name:' Provider',status:'checked',default:'1'},
+                    {value: 'origin', name:'origin',status:'checked',default:'1'},
+                    {value:'promoUrl',name:' Promo url',status:'checked',default:'1'},
+                    {value:'gameLaunchUrl',name:' game Launch Url',status:'checked',default:'1'},
                 ]
             },
         }
@@ -175,16 +175,16 @@ export default {
         setformvalue(obj){
             var newthis = this;
             var editform = this.$refs.editform
-            var name =editform.elements.gamename;
-            var promoLink =editform.elements.promolink;
-            var provider =editform.elements.provider;
-            var title =editform.elements.title;
+            var name =editform.elements.name;
+            var promoUrl =editform.elements.promourl;
+            var origin =editform.elements.origin;
+            var gameLaunchUrl =editform.elements.gamelaunchurl;
 
 
             if(obj.name)name.value=obj.name;
-            if(obj.promoLink)promoLink.value =obj.promoLink;
-            if(obj.provider)provider.value =obj.provider;
-            if(obj.title)title.value =obj.title;
+            if(obj.promoUrl)promoUrl.value =obj.promoUrl;
+            if(obj.origin)origin.value =obj.origin;
+            if(obj.gameLaunchUrl)gameLaunchUrl.value =obj.gamelaunchurl;
         },
         registration_or_edit(e){
             e.preventDefault();
@@ -192,10 +192,10 @@ export default {
 
             var newthis = this;
             var editform = this.$refs.editform
-            var name =editform.elements.gamename.value;
-            var promoLink =editform.elements.promolink.value;
-            var provider =editform.elements.provider.value;
-            var title =editform.elements.title.value;
+            var name =editform.elements.name.value;
+            var promoUrl =editform.elements.promourl.value;
+            var origin =editform.elements.origin.value;
+            var gameLaunchUrl =editform.elements.gamelaunchurl.value;
 
             var edit_or_addURL;
             if(this.activeform=='game_editform'){
@@ -214,7 +214,7 @@ export default {
                       withCredentials: true
                   },
                 type: 'POST',
-                data: {'name':name,'promoLink':promoLink,'provider':provider, 'title':title},
+                data: {'name':name,'promoUrl':promoUrl,'origin':origin, 'gameLaunchUrl':gameLaunchUrl},
 
                 success:function (data) {
                     console.log(data);
@@ -248,11 +248,7 @@ export default {
                 success: function(data){
                     console.log(data);
 
-                    if(data.result && newthis.activeusertype=='user'){
-                        newthis.usertable.ansver = data.result
-                    }else if(data.result && newthis.activeusertype=='manager'){
-                        newthis.menagertable.ansver = data.result
-                    }
+
                 },
 
             })
@@ -260,7 +256,7 @@ export default {
     },
 
     mounted(){
-        userevent.$on('editgame', (elem)=> {
+        userevent.$on('editprovider', (elem)=> {
             console.log(elem);
             console.log('catch casinoedit');
             this.getedit_position(elem.element)

@@ -4,7 +4,7 @@
 
     <label for="gameFilter">Sort by
   	   <div class="inpContainer">
-  		   <select name="sort" v-bind:disabled="options.disabled" class="form-control">
+  		   <select name="sort" v-model='options.active' v-bind:disabled="options.disabled" class="form-control">
   			   <option v-for='(key, index) in options.sortby' v-bind:value='index'>{{key.name}}</option>
   		   </select>
   	    </div>

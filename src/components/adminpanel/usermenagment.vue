@@ -379,6 +379,9 @@ export default {
             console.log(elem);
             this.geteditmanager(elem.element)
         })
+    },
+    destroyed(){
+        userevent.$off();
     }
 }
 </script>

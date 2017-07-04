@@ -5,7 +5,7 @@
                 <li><router-link to='usermenagment'>User managment</router-link></li>
                 <li><router-link to='casinomenagment'>Casino managment</router-link></li>
                 <li><router-link to='gamemenagment'>Game managment</router-link></li>
-                <li><router-link to='provaiders'>Provaiders</router-link></li>
+                <li><router-link to='providers'>Provaiders</router-link></li>
             </ul>
         </div>
 

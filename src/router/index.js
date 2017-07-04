@@ -15,6 +15,8 @@ import adminpanel from '@/components/adminpanel/adminpanel'
 import home from '@/components/adminpanel/home'
 import usermenagment from '@/components/adminpanel/usermenagment'
 import casinomenagment from '@/components/adminpanel/casinomenagment'
+import gamemenagment from '@/components/adminpanel/gamemenagment'
+import providers from '@/components/adminpanel/providers'
 
 
 
@@ -77,6 +79,14 @@ export default new Router({
           {
               path:'casinomenagment',
               component:casinomenagment,
+          },
+          {
+              path:'gamemenagment',
+              component:gamemenagment,
+          },
+          {
+              path:'providers',
+              component:providers
           }
       ]
   }

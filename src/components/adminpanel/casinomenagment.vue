@@ -9,14 +9,14 @@
                 <form class="text_left">
                     <div>
                         <input v-on:click="add_position" type="button" class="btn btn-lg btn-primary" value="Add">
-                        <input v-on:click='getcasinolist'  type="button" name="panel_us_searh" class="btn btn-lg btn-success" value="Search">
+                        <input v-on:click='getpositionlist'  type="button" name="panel_us_searh" class="btn btn-lg btn-success" value="Search">
                     </div>
 
 
                     <div>
                         <label>search by id
                             <div class="inpContainer">
-                                <input ref='panel_casino_id' type="text" name="panel_casino_id" id="panel_casino_id" value='' class="form-control">
+                                <input ref='id_position' type="text" name="id_position" id="id_position" value='' class="form-control">
                             </div>
                         </label>
                     </div>
@@ -135,14 +135,14 @@ export default {
             editform.elements.reset.click();
             this.activeform='casino_addform';
         },
-        getcasinolist(obj){
+        getpositionlist(obj){
             var newthis = this;
-            var panel_casino_id = this.$refs.panel_casino_id.value;
-            console.log(panel_casino_id);
+            var id_position = this.$refs.id_position.value;
+            // console.log(id_position);
             var fulllink = admin_url +tamplate_link;
             var postdata={};
-            if(panel_casino_id != ''){
-                postdata._id = panel_casino_id;
+            if(id_position != ''){
+                postdata._id = id_position;
             }
             $.ajax({
                 url: fulllink,
@@ -160,7 +160,7 @@ export default {
 
             })
         },
-        geteditcasino(newid){
+        getedit_position(newid){
             var newthis =this;
             var postdata={};
             postdata._id=newid
@@ -221,7 +221,7 @@ export default {
                 edit_or_addURL=tamplate_link+'/add'
             }
 
-            // console.log({'login':login,'password':password,'email':email, 'gender':gender,'userRole':userRole,'displayName':displayName});
+            console.log({'name':casinoname,'callbackUrl':callbackurl,'secret':secret, 'secretNeed':secretneed,'baseCurrency':currency});
 
             $.ajax({
                 url: admin_url +edit_or_addURL,
@@ -264,11 +264,6 @@ export default {
                 success: function(data){
                     console.log(data);
 
-                    if(data.result && newthis.activeusertype=='user'){
-                        newthis.usertable.ansver = data.result
-                    }else if(data.result && newthis.activeusertype=='manager'){
-                        newthis.menagertable.ansver = data.result
-                    }
                 },
 
             })
@@ -279,8 +274,11 @@ export default {
         userevent.$on('editcasino', (elem)=> {
             console.log(elem);
             console.log('catch casinoedit');
-            this.geteditcasino(elem.element)
+            this.getedit_position(elem.element)
         })
+    },
+    destroyed(){
+        userevent.$off();
     }
 }
 </script>
