@@ -59,11 +59,7 @@ export default {
           console.log(data);
           if(data.login){
               console.log(data.login);
-              for(var key in data){
-                  if(userdata[key] == false){
-                      userdata[key]=data[key]
-                  }
-              }
+              checkGlobalsession(data);
               newthis.$router.push('/statistic')
               userdata.userstate=true;
               console.log(userdata);

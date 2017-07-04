@@ -99,7 +99,7 @@ export default {
     position: relative;
     color: #000;
     background-color: #505050;
-    padding: 15px 5px;
+
     margin-top: 24px;
     max-width: 450px;
     h3{
@@ -110,7 +110,11 @@ export default {
         a{
             font-size: 24px;
             text-decoration: none;
-            color:inherit;
+            color: inherit;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            padding: 15px 5px;
         }
     }
 }

@@ -24,6 +24,12 @@ export default {
             casinolist:{},
         }
     },
+    methods:{
+
+    },
+    mounted(){
+        
+    }
 }
 </script>
 

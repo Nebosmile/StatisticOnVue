@@ -29,7 +29,7 @@
   							<li><a>Profile</a></li>
 
   							<li id="panel"><router-link to='/adminpanel/home'>Panel</router-link></li>
-  							<li id="logout"><a>Log Out</a></li>
+  							<li v-on:click='logout' id="logout"><a>Log Out</a></li>
   						</ul>
   					</div>
   					<div class="settings_panel left"><img src="../assets/shesterenka.png" alt="">
@@ -52,6 +52,26 @@ export default {
         }
     },
     methods:{
+
+        logout(){
+            var newthis =this;
+            var logout_url ='http://devinterlayer.bossgs.org/manager/logout'
+            $.ajax({
+                url: logout_url,
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
+                type: 'GET',
+                success:function (data) {
+                    if(data){
+                        newthis.$router.push('/')
+                    }
+
+                }
+
+            })
+        },
         closeopen_panel(){
             var elem =this.$refs.admin_menu;
             elem.classList.toggle('hide')
@@ -64,15 +84,42 @@ export default {
             if(userdata.userstate==false){
                 console.log('user is not register// vue component.header');
             }
+        },
+        checksession(){
+            var newthis = this;
+            // console.log(userdata);
+            $.ajax({
+                url: 'http://devinterlayer.bossgs.org/manager/session',
+                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                xhrFields: {
+                      withCredentials: true
+                  },
+                type: 'POST',
+                success:function (data) {
+                    console.log(data);
+                    if(data.status !=undefined){
+                        if(data.status.login){
+                            checkGlobalsession(data.status);
+                            newthis.checkuser()
+                        }
+                    }
+                    else{
+                        userdata.userstate=false;
+                        newthis.$router.push('/')
+                    }
+                }
+
+            })
         }
 
     },
-    mounted(){
-        this.checkuser
+    created(){
+        this.checksession();
+
     },
     watch: {
         // в случае изменения маршрута запрашиваем данные вновь
-        '$route': 'checkuser'
+        '$route': 'checksession',
       },
 }
 </script>

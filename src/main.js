@@ -23,6 +23,20 @@ window.userdata = new Vue({
 window.userevent=new Vue({
 
 })
+window.checkGlobalsession = function (data) {
+
+    if(data.login){
+        console.log(data);
+        for(var key in data){
+            if(userdata[key] == false){
+                userdata[key]=data[key]
+                userdata.userstate=true;
+            }
+        }
+        console.log(userdata);
+    }
+
+}
 window.admin_url ='http://devinterlayer.bossgs.org/manager/adminpanel/';
 window.statistic_url ='http://devinterlayer.bossgs.org/manager/adminpanel/proxy/request?url=';
 window.gois=function () {
